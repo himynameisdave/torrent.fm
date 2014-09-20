@@ -1,0 +1,142 @@
+@import (reference) "core.less";
+//	(actual styles go here)
+
+#floaty		{
+	position: 			absolute;
+	width: 				280px;
+	min-height: 		100px;
+	background-color: 	gray;
+	margin-left: 		-160px;
+	top:				0;
+	left: 				50%;	
+	z-index: 			999;	
+	text-align: 		center;
+	padding-bottom: 	30px;
+}
+
+#floaty h1	{
+	font-family: 		"Helvetica Neue", Helvetica, Helvetica Light, Arial, sans-serif;
+	font-weight: 		900;
+	font-size: 			3em;
+	letter-spacing: 	-0.05em;
+	color: 				#fff;
+	margin: 			5px auto 10px;
+}
+#floaty p	{
+	color: 				#fff;
+	width: 				85%;
+	margin: 			5px auto;
+}
+
+#userInput	{
+	width: 				85%;
+	border:				0;
+	box-shadow: 		inset 0px 0px 2px 1px rgba(0,0,0,0.7);
+	padding: 			5px;
+	text-align: 		center;
+	border-radius: 			5px;
+	-webkit-border-radius:	5px;
+	-moz-border-radius: 	5px;
+	font-family: 		"Helvetica Neue", Helvetica, Helvetica Light, Arial, sans-serif;
+	font-weight: 		900;
+	font-size: 			1.5em;
+	letter-spacing: 	-0.04em;
+}
+
+#submitBtn	{
+	width: 				80px;
+	font-family: 		"Helvetica Neue", Helvetica, Helvetica Light, Arial, sans-serif;
+	font-weight: 		900;
+	font-size: 			1.5em;
+	letter-spacing: 	-0.04em;
+	border:				0;
+	border-radius: 			5px;
+	-webkit-border-radius:	5px;
+	-moz-border-radius: 	5px;
+	box-shadow: 		0px 0px 2px 1px rgba(0,0,0,0.7);
+	cursor: 			pointer;
+}
+#submitBtn:active	{
+	box-shadow: 		inset 1px 1px 2px 1px rgba(0,0,0,0.7);
+}
+
+.wrap {
+   overflow: hidden;
+   margin: 5px;
+}
+.box {
+   float: left;
+   position: relative;
+   width: 20%;
+   padding-bottom: 20%;
+}
+.boxInner {
+   position: absolute;
+   left: 1px;
+   right: 1px;
+   top: 1px;
+   bottom: 1px;
+   overflow: hidden;
+}
+.boxInner img {
+   width: 100%;
+}
+.boxInner .titleBox {
+   position: absolute;
+   bottom: 40%;
+   left: 0;
+   right: 0;
+   background: #000;
+   background: rgba(0, 0, 0, 0.5);
+   color: #FFF;
+   padding: 10px;
+   text-align: center;
+   -webkit-transition: all 0.3s ease-out;
+   -moz-transition: all 0.3s ease-out;
+   -o-transition: all 0.3s ease-out;
+   transition: all 0.3s ease-out;
+}
+.boxInner .titleBox a{
+	font-family: 		"Helvetica Neue", Helvetica, Helvetica Light, Arial, sans-serif;
+	font-weight: 		900;
+	font-size: 			2.5em;
+	letter-spacing: 	-0.04em;
+	color:				#fff;
+	text-decoration: 	none;
+}
+.boxInner .titleBox a:hover,
+.boxInner .titleBox a:active {
+	text-decoration: 	underline;
+}
+
+body.no-touch .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleBox {
+   margin-bottom: 0;
+}
+@media only screen and (max-width : 480px) {
+   /* Smartphone view: 1 tile */
+   .box {
+      width: 100%;
+      padding-bottom: 100%;
+   }
+}
+@media only screen and (max-width : 650px) and (min-width : 481px) {
+   /* Tablet view: 2 tiles */
+   .box {
+      width: 50%;
+      padding-bottom: 50%;
+   }
+}
+@media only screen and (max-width : 1050px) and (min-width : 651px) {
+   /* Small desktop / ipad view: 3 tiles */
+   .box {
+      width: 33.3%;
+      padding-bottom: 33.3%;
+   }
+}
+@media only screen and (max-width : 1290px) and (min-width : 1051px) {
+   /* Medium desktop: 4 tiles */
+   .box {
+      width: 25%;
+      padding-bottom: 25%;
+   }
+}
