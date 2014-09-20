@@ -1,63 +1,201 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:900,400,700,400italic,300italic,500,100italic,500italic,300,700italic,100,900italic);
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+canvas,
+footer,
+header,
+menu,
+nav {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+body,
+html {
+  margin: 0;
+  font-family: 'Raleway', 'Roboto', 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 25.88854382px;
+  color: #333333;
+}
+ol,
+ul {
+  list-style: none;
+}
+img {
+  max-width: 100%;
+}
+input[type="text"],
+input[type="number"],
+input[type="password"],
+textarea,
+select {
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  height: auto;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+svg {
+  overflow: visible;
+}
+input[type="submit"],
+button {
+  outline: none;
+}
+input[type="submit"]:focus,
+button:focus {
+  outline: none;
+}
+.box {
+  -webkit-box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.24);
+}
 #floaty {
-  position: absolute;
-  width: 280px;
-  min-height: 100px;
-  background-color: gray;
-  margin-left: -160px;
-  top: 0;
-  left: 50%;
-  z-index: 999;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  width: 12%;
+  min-width: 220px;
+  min-height: 100%;
+  height: 100%;
+  padding: 100px 10px 0;
+  background-color: #3f51b5;
+  z-index: 900;
   text-align: center;
-  padding-bottom: 30px;
+  -webkit-box-shadow: 0 0 0 15px #2b387c, 0 0 0 20px #252f69, 0 0 0 23px #ffc107;
+  box-shadow: 0 0 0 15px #2b387c, 0 0 0 20px #252f69, 0 0 0 23px #ffc107;
+  color: #fff;
 }
 #floaty h1 {
-  font-family: "Helvetica Neue", Helvetica, Helvetica Light, Arial, sans-serif;
-  font-weight: 900;
-  font-size: 3em;
-  letter-spacing: -0.05em;
-  color: #fff;
-  margin: 5px auto 10px;
+  font-size: 28px;
+  font-weight: 300;
 }
-#floaty p {
-  color: #fff;
-  width: 85%;
-  margin: 5px auto;
+#floaty .descrip,
+#floaty .instructions {
+  font-size: 14px;
+  line-height: 22.65247584px;
+  width: 98%;
+  margin: 10px auto;
 }
-#userInput {
-  width: 85%;
+#floaty .controls {
+  padding: 10px 0;
+}
+#floaty .controls #userInput {
+  -webkit-transition: border 0.55s ease;
+  transition: border 0.55s ease;
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  background: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 100;
+  padding: 8px 12px;
   border: 0;
-  -webkit-box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.7);
-  box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.7);
-  padding: 5px;
+  border-bottom: 1px solid #fff;
+}
+#floaty .controls #userInput::-webkit-input-placeholder {
+  color: #fff;
+}
+#floaty .controls #userInput:-moz-placeholder {
+  /* Firefox 18- */
+  color: #fff;
+}
+#floaty .controls #userInput::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff;
+}
+#floaty .controls #userInput:-ms-input-placeholder {
+  color: #fff;
+}
+#floaty .controls #userInput:focus {
+  outline: none;
+  border-bottom: 3px solid #fff;
+}
+#floaty .controls #submitBtn {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-transition: all 0.45s ease;
+  transition: all 0.45s ease;
+  width: 80%;
+  margin: 20px auto 0;
+  padding: 8px;
+  display: block;
+  background: none;
   text-align: center;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  font-family: "Helvetica Neue", Helvetica, Helvetica Light, Arial, sans-serif;
-  font-weight: 900;
-  font-size: 1.5em;
-  letter-spacing: -0.04em;
+  color: #fff;
+  font-size: 13px;
+  border: 1px solid #fff;
+  border-radius: 8px;
 }
-#submitBtn {
-  width: 80px;
-  font-family: "Helvetica Neue", Helvetica, Helvetica Light, Arial, sans-serif;
-  font-weight: 900;
-  font-size: 1.5em;
-  letter-spacing: -0.04em;
-  border: 0;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.7);
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.7);
-  cursor: pointer;
+#floaty .controls #submitBtn:hover {
+  background: #fff;
+  color: #3f51b5;
+  border: 1px solid #ffc107;
 }
-#submitBtn:active {
-  -webkit-box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.7);
-  box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.7);
+#floaty .controls #submitBtn:focus {
+  outline: none;
 }
-.wrap {
+.renderbox {
+  position: absolute;
+  left: 12%;
+  width: 88%;
+  height: 100%;
+  top: 0;
+  background: url('http://www.vectors4all.net/preview/seamless-flower-pattern.jpg') repeat;
+  opacity: 0.5;
+}
+.renderbox .wrap {
   overflow: hidden;
   margin: 5px;
 }
@@ -66,6 +204,12 @@
   position: relative;
   width: 20%;
   padding-bottom: 20%;
+  border: 0;
+  -webkit-box-shadow: 0;
+  box-shadow: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .boxInner {
   position: absolute;
@@ -77,31 +221,6 @@
 }
 .boxInner img {
   width: 100%;
-}
-.boxInner .titleBox {
-  position: absolute;
-  bottom: 40%;
-  left: 0;
-  right: 0;
-  background: #000;
-  background: rgba(0, 0, 0, 0.5);
-  color: #FFF;
-  padding: 10px;
-  text-align: center;
-  -webkit-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-}
-.boxInner .titleBox a {
-  font-family: "Helvetica Neue", Helvetica, Helvetica Light, Arial, sans-serif;
-  font-weight: 900;
-  font-size: 2.5em;
-  letter-spacing: -0.04em;
-  color: #fff;
-  text-decoration: none;
-}
-.boxInner .titleBox a:hover,
-.boxInner .titleBox a:active {
-  text-decoration: underline;
 }
 body.no-touch .boxInner:hover .titleBox,
 body.touch .boxInner.touchFocus .titleBox {

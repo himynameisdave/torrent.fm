@@ -2,36 +2,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="description" content="torrecommendations is a last.fm project that makes it easier for you to download your top recommended albums!">
+<meta name="description" content="">
 <meta name="keywords" content="Last.fm, web app, data, music">
 <meta name="author" content="Dave Lunny">
 
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 
+<link href='http://fonts.googleapis.com/css?family=Raleway:500,300,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="css/style.css"	/>
 
-<title>torrecommendations</title>
+<title>torrent.fm</title>
 </head>
 
 <body>
 
-	<div id='floaty'>
-		<h1>torrecommendations</h1>
-		
-		<p>Making it easier for you to download your top recommended albums from last.fm</p>
-		
-		<input id='userInput' placeholder='Last.fm Username' autocomplete='yes' />
-		<button id='submitBtn'>Submit</button>
-		
+	<div id="floaty">
+
+		<h1>torrent.fm</h1>	
+
+		<div class="descrip">
+			A simple way to find torrents for the albums you'll love.
+		</div>
+
+		<hr>
+
+		<div class="instructions">
+			Type in a last.fm username and find their top played albums in the last 7 days (more functionality to come)
+		</div>
+
+		<hr>
+
+		<div class="controls">
+			<input id='userInput' placeholder='Last.fm Username' autocomplete='yes' />
+			<button id='submitBtn'>Submit</button>
+		</div>
+
+		<hr>
+
 	</div><!--End floaty-->
-	
-	<div class="wrap">
-  
-  
-</div>
-<!-- /#wrap -->
-	
+		
+	<div class="renderbox">
+		<div class="wrap">
+		</div>	
+	</div>
+
+	<footer>
+	</footer>
 
 </body>
 </html>

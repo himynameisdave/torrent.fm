@@ -43,14 +43,11 @@ function validateUsername(un)	{
 
 
 function issueErrorMsg(errorMsg){
-	
 	alert("ERROR!   " + errorMsg);
-	
 };
 
 
 function getMeSomeAlbums(username){
-	
 	
 	$("div.wrap").empty();	
 	
@@ -70,6 +67,8 @@ function getMeSomeAlbums(username){
 	var albums = xmlDoc.getElementsByTagName("album");
 	var j = 0;
 	var hundoP;	
+	var appendContent = '';
+
 	var datSafetyNet = setInterval(function(){
 		
 		if(j < 25){
@@ -79,15 +78,23 @@ function getMeSomeAlbums(username){
 			var artist    = artistName[0].getElementsByTagName("name")[0].childNodes[0].nodeValue;
 			var image		= albums[j].getElementsByTagName("image")[2].childNodes[0].nodeValue;
 			
-			$('div.wrap').append("<div class='box'><div class='boxInner'><img src='"+image+"' /><div class='titleBox'><a href='https://www.google.ca/#q="+artist+"+"+albumName+"+torrent'>"+albumName+"</a></div> </div></div>");
+			appendContent += "<div class='box'><div class='boxInner'><img src='"+image+"' /><div class='titleBox'><a href='https://www.google.ca/#q="+artist+"+"+albumName+"+torrent'>"+albumName+"</a></div> </div></div>"
 			
 			j++
 			
 		}else{
-			clearInterval(datSafetyNet)
+			clearInterval(datSafetyNet);
+			appender(appendContent);
 		};
 		
 	}, 200);
+
+	function appender(apCont){
+		//quick set .renderbox to not be opaque
+		$('.renderbox').css('opacity','1');
+		$('div.wrap').append(apCont);
+	};	
+
 	
 };//end getMeSomeAlbums()
 
