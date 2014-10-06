@@ -173,6 +173,9 @@ button:focus {
   background: rgba(250, 250, 250, 0.99);
   color: #ff6666;
 }
+.topbar .username {
+  margin-top: 12px;
+}
 section.card {
   background: #fff;
   box-shadow: 0 0 12px 2px #ccc;
