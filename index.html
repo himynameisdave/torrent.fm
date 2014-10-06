@@ -41,11 +41,11 @@
 					<div 	class="col-xs-2 col-xs-offset-7 col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-7" 
 							style="text-align:right;">
 
-							<div 	ng-if="authorized" 
+							<div 	ng-show="authorized" 
 									class="username">
 									{{username}}
 							</div>
-							<div 	ng-if="!authorized" class="pull-right">
+							<div 	ng-show="!authorized" class="pull-right">
 								<div 	class="auth-button"
 										ng-click="authUser()">	
 									Login
