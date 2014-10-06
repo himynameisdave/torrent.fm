@@ -1,4 +1,10 @@
 torrent.fm
 ==========
 
-A small app making it easier to see a user's most played albums, recommendations, with easy links to torrents.
+A small app that makes downloading (specifically finding torrents) for recommended artists' top albums easier.
+
+####Powered By:
+
+- last.fm
+- angular.js
+
