@@ -46,19 +46,19 @@ section {
   display: block;
 }
 * {
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
 body,
 html {
   margin: 0;
-  font-family: 'Raleway', 'Roboto', 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
-  height: 100%;
+  font-family: 'Lato', 'Roboto', 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100%;
   font-size: 16px;
   font-weight: 300;
   line-height: 25.88854382px;
   color: #333333;
+  background: #f2f2f2;
 }
 ol,
 ul {
@@ -93,164 +93,180 @@ input[type="submit"]:focus,
 button:focus {
   outline: none;
 }
-.box {
-  -webkit-box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.24);
-  box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.24);
+.ib {
+  display: inline-block;
+  vertical-align: middle;
 }
-#floaty {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  position: fixed;
-  left: 0;
-  width: 12%;
-  min-width: 220px;
+.bold {
+  font-weight: bold;
+}
+.center {
+  text-align: center;
+}
+.fullheight {
+  height: 100%;
+}
+.minfullheight {
   min-height: 100%;
-  height: 100%;
-  padding: 100px 10px 0;
-  background-color: #3f51b5;
-  z-index: 900;
-  text-align: center;
-  -webkit-box-shadow: 0 0 0 15px #2b387c, 0 0 0 20px #252f69, 0 0 0 23px #ffc107;
-  box-shadow: 0 0 0 15px #2b387c, 0 0 0 20px #252f69, 0 0 0 23px #ffc107;
-  color: #fff;
 }
-#floaty h1 {
-  font-size: 28px;
-  font-weight: 300;
+.hidden {
+  visibility: hidden;
 }
-#floaty .descrip,
-#floaty .instructions {
-  font-size: 14px;
-  line-height: 22.65247584px;
-  width: 98%;
-  margin: 10px auto;
+.dis-none {
+  display: none;
 }
-#floaty .controls {
-  padding: 10px 0;
+.clickable {
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-#floaty .controls #userInput {
-  -webkit-transition: border 0.55s ease;
-  transition: border 0.55s ease;
-  width: 80%;
-  margin: 0 auto;
-  display: block;
-  background: none;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 100;
-  padding: 8px 12px;
-  border: 0;
-  border-bottom: 1px solid #fff;
-}
-#floaty .controls #userInput::-webkit-input-placeholder {
-  color: #fff;
-}
-#floaty .controls #userInput:-moz-placeholder {
-  /* Firefox 18- */
-  color: #fff;
-}
-#floaty .controls #userInput::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #fff;
-}
-#floaty .controls #userInput:-ms-input-placeholder {
-  color: #fff;
-}
-#floaty .controls #userInput:focus {
-  outline: none;
-  border-bottom: 3px solid #fff;
-}
-#floaty .controls #submitBtn {
-  -webkit-box-sizing: border-box;
+.circle {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  -webkit-transition: all 0.45s ease;
-  transition: all 0.45s ease;
-  width: 80%;
-  margin: 20px auto 0;
-  padding: 8px;
-  display: block;
-  background: none;
-  text-align: center;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+}
+.main-wrap {
+  margin-top: 60px;
+  z-index: 100;
+}
+.topbar {
+  background: #ff6666;
   color: #fff;
-  font-size: 13px;
-  border: 1px solid #fff;
-  border-radius: 8px;
-}
-#floaty .controls #submitBtn:hover {
-  background: #fff;
-  color: #3f51b5;
-  border: 1px solid #ffc107;
-}
-#floaty .controls #submitBtn:focus {
-  outline: none;
-}
-.renderbox {
-  position: absolute;
-  left: 12%;
-  width: 88%;
-  height: 100%;
+  width: 100%;
+  z-index: 200;
+  position: fixed;
   top: 0;
-  background: url('http://www.vectors4all.net/preview/seamless-flower-pattern.jpg') repeat;
-  opacity: 0.5;
+  height: 60px;
+  box-shadow: 0 1px 9px 0px #4d4d4d;
 }
-.renderbox .wrap {
-  overflow: hidden;
-  margin: 5px;
-}
-.box {
-  float: left;
-  position: relative;
-  width: 20%;
-  padding-bottom: 20%;
-  border: 0;
-  -webkit-box-shadow: 0;
-  box-shadow: 0;
-  -webkit-box-sizing: border-box;
+section.card {
+  background: #fff;
+  box-shadow: 0 0 12px 2px #ccc;
+  height: 250px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
+  margin-top: 24px;
+  -webkit-transition: box-shadow 0.25s ease;
+  -moz-transition: box-shadow 0.25s ease;
+  -o-transition: box-shadow 0.25s ease;
+  transition: box-shadow 0.25s ease;
 }
-.boxInner {
-  position: absolute;
-  left: 1px;
-  right: 1px;
-  top: 1px;
-  bottom: 1px;
-  overflow: hidden;
+section.card:hover {
+  box-shadow: 0 0 14px 3px #bfbfbf;
 }
-.boxInner img {
+section.card .main-img {
+  display: inline-block;
+  vertical-align: middle;
+  vertical-align: top;
+  width: 250px;
+  height: 100%;
+  background: #ddd;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+section.card article.content {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  vertical-align: top;
+  width: 55%;
+  overflow-y: scroll;
+  max-height: 100%;
+}
+section.card article.content h3.artist-name {
+  font-size: 24px;
+}
+section.card article.content div.tags {
+  font-size: 10.5px;
+  font-weight: 900;
+  color: #00aacc;
+}
+section.card article.content div.tags span.tag {
+  margin-left: 12px;
+}
+section.card article.content div.tags span.tag:first-child {
+  margin-left: 6px;
+}
+section.card article.content div.tags span.tag:nth-of-type(2) {
+  color: #00bbe0;
+}
+section.card article.content div.tags span.tag:nth-of-type(3) {
+  color: #00ccf5;
+}
+section.card article.content nav.card-nav {
+  width: 100%;
+  height: 30px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+section.card article.content nav.card-nav div.nav-item {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: border 0.28s ease;
+  -moz-transition: border 0.28s ease;
+  -o-transition: border 0.28s ease;
+  transition: border 0.28s ease;
+  font-size: 15px;
+  vertical-align: top;
+  border-bottom: 1px solid #333;
+  width: 28%;
+  margin-left: 6px;
+}
+section.card article.content nav.card-nav div.nav-item:first-child {
+  margin-left: 0;
+}
+section.card article.content nav.card-nav div.nav-item.active {
+  border-bottom: 4px solid #ff6666;
+}
+section.card article.content div.content-area {
   width: 100%;
 }
-body.no-touch .boxInner:hover .titleBox,
-body.touch .boxInner.touchFocus .titleBox {
-  margin-bottom: 0;
+section.card article.content div.content-area div.bio {
+  font-size: 12px;
+  line-height: 19.4172px;
 }
-@media only screen and (max-width: 480px) {
-  /* Smartphone view: 1 tile */
-  .box {
-    width: 100%;
-    padding-bottom: 100%;
+@media screen and (max-width: 590px) {
+  section.card {
+    height: 154.50219393px;
+  }
+  section.card .main-img {
+    width: 154.50219393px;
+  }
+  section.card article.content {
+    padding: 12px;
   }
 }
-@media only screen and (max-width: 650px) and (min-width: 481px) {
-  /* Tablet view: 2 tiles */
-  .box {
-    width: 50%;
-    padding-bottom: 50%;
-  }
+footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
-@media only screen and (max-width: 1050px) and (min-width: 651px) {
-  /* Small desktop / ipad view: 3 tiles */
-  .box {
-    width: 33.3%;
-    padding-bottom: 33.3%;
-  }
+footer a {
+  color: #00aacc;
+  text-decoration: underline;
+  -webkit-transition: color 0.3s ease;
+  -moz-transition: color 0.3s ease;
+  -o-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
-@media only screen and (max-width: 1290px) and (min-width: 1051px) {
-  /* Medium desktop: 4 tiles */
-  .box {
-    width: 25%;
-    padding-bottom: 25%;
-  }
+footer a:hover {
+  color: #ff6666;
+  text-decoration: none;
 }

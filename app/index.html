@@ -1,54 +1,104 @@
 <!DOCTYPE HTML>
-<html>
+<html ng-app="app">
 <head>
-<meta charset="UTF-8">
-<meta name="description" content="">
-<meta name="keywords" content="Last.fm, web app, data, music">
-<meta name="author" content="Dave Lunny">
 
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+	<title>torrent.fm</title>
+	<meta charset="UTF-8">
 
-<link href='http://fonts.googleapis.com/css?family=Raleway:500,300,800' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="css/style.css"	/>
+	<meta name="description" content="A small angular app to make it easier to ">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dave Lunny">
 
-<title>torrent.fm</title>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,900' rel='stylesheet' type='text/css'>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/style.css"	/>
+
 </head>
-
-<body>
-
-	<div id="floaty">
-
-		<h1>torrent.fm</h1>	
-
-		<div class="descrip">
-			A simple way to find torrents for the albums you'll love.
-		</div>
-
-		<hr>
-
-		<div class="instructions">
-			Type in a last.fm username and find their top played albums in the last 7 days (more functionality to come)
-		</div>
-
-		<hr>
-
-		<div class="controls">
-			<input id='userInput' placeholder='Last.fm Username' autocomplete='yes' />
-			<button id='submitBtn'>Submit</button>
-		</div>
-
-		<hr>
-
-	</div><!--End floaty-->
+<body ng-controller="Controller">
 		
-	<div class="renderbox">
-		<div class="wrap">
+		<div class="topbar">
+			<div class="page-container container-fluid">
+				<div class="row">
+					<div class="col-xs-3 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-0">
+						<div class="logo">
+							t<span class="hidden-xs">orrent</span>.fm
+						</div>
+					</div>
+					<div 	class="col-xs-2 col-xs-offset-7 col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-7" 
+							style="text-align:right;">
+						himynameisdave9
+					</div>
+				</div>	
+			</div>
+		</div>
+
+		<div class="page-container container-fluid main-wrap">
+			<div class="row">
+				<div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0 ">
+					<div class="row">
+
+
+						<div class="col-xs-12 col-lg-6" ng-repeat="artist in artists track by $index">
+							<section class="card">
+								<div class="main-img" style="background-image: url({{artist.img}});"></div>
+								<article class="content">
+									<h3 class="artist-name">{{artist.name}}</h3>
+									<div class="tags">
+										<span 	class="tag" 
+												ng-repeat="tag in artist.tags">
+												{{tag}}
+										</span>
+									</div>
+
+									<nav class="card-nav">
+										<div 	class="nav-item"
+												ng-class="{active: navs[$index].active == 1 }"
+												ng-click="navs[$index].active = 1">
+											Bio
+										</div>
+										<div 	class="nav-item"
+												ng-class="{active: navs[$index].active == 2 }"
+												ng-click="navs[$index].active = 2">
+											Albums
+										</div>
+										<div 	class="nav-item"
+												ng-class="{active: navs[$index].active == 3 }"
+												ng-click="navs[$index].active = 3">
+											Tracks
+										</div>
+									</nav>
+
+									<div class="content-area" ng-switch="navs[$index].active">
+										<div class="bio" ng-switch-when="1">
+											<p>
+												{{artist.bio}}
+											</p>
+										</div>
+										<div ng-switch-when="2">Albums go here!</div>
+										<div ng-switch-when="3">tracks goes here!</div>
+									</div>	
+
+								</article>
+							</section>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<footer class="col-xs-12">
+				Created by <a href="http://twitter.com/dave_lunny">Dave Lunny</a> in the beautiful year 2014
+				</footer>
+			</div>
 		</div>	
-	</div>
-
-	<footer>
-	</footer>
-
+	
 </body>
 </html>

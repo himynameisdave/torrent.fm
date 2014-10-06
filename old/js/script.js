@@ -78,8 +78,13 @@ function getMeSomeAlbums(username){
 			var artist    = artistName[0].getElementsByTagName("name")[0].childNodes[0].nodeValue;
 			var image		= albums[j].getElementsByTagName("image")[2].childNodes[0].nodeValue;
 			
-			appendContent += "<div class='box'><div class='boxInner'><img src='"+image+"' /><div class='titleBox'><a href='https://www.google.ca/#q="+artist+"+"+albumName+"+torrent'>"+albumName+"</a></div> </div></div>"
-			
+			appendContent += "<div class='box'>";
+			appendContent += "<div class='boxInner'>";
+			appendContent += "<div class='boxInnerInner'>";
+			appendContent += "<img src='"+image+"' />";
+			appendContent += "<div class='titleBox'>";
+			appendContent += "<a href='https://www.google.ca/#q="+artist+"+"+albumName+"+torrent'>"+albumName+"</a>";
+			appendContent += "</div></div></div>"
 			j++
 			
 		}else{

@@ -1,0 +1,26 @@
+[
+	{
+			"name"	:	"Caribou"
+		,	"img"	:	"http://userserve-ak.last.fm/serve/500/72167680/Caribou.png"
+		,	"tags"	:	[ "electronic" , "groove"	, "psychedelic" ]
+		,	"bio"	:	"Caribou is Canadian Dan Snaith (b. 1978), who formerly recorded under the moniker Manitoba. Known for altering his sound with each subsequent release, he incorporates electronic psychedelia, krautrock rhythms, and breakbeat drums and creates a swirling, lush, musical panorama."
+	}
+,	{
+			"name"	:	"The Juan Maclean"
+		,	"img"	:	"http://userserve-ak.last.fm/serve/_/26231677/The+Juan+Maclean+juan++nancy.jpg"
+		,	"tags"	:	[ "electronic", "dance", "groove" ]
+		,	"bio"	:	"Prior to becoming one of the most significant acts on the DFA label, John Maclean was a member of Sub Pop band Six Finger Satellite."
+	}
+,	{
+			"name"	:	"Washed Out"
+		,	"img"	:	"http://i.guim.co.uk/static/w-460/h--/q-95/sys-images/music/Pix/pictures/2009/9/23/1253715324566/Washed-Out-001.jpg"
+		,	"tags"	:	[ "bedroom pop", "chillwave", "mellow" ]
+		,	"bio"	:	"Prior to becoming one of the most significant acts on the DFA label, John Maclean was a member of Sub Pop band Six Finger Satellite."
+	}
+,	{
+			"name"	:	"Neon Indian"
+		,	"img"	:	"http://www.forcefieldpr.com/photos/SEP212010/GLS_HighRes5small.jpg"
+		,	"tags"	:	[ "electronic", "chiptune", "folktronica" ]
+		,	"bio"	:	"Prior to becoming one of the most significant acts on the DFA label, John Maclean was a member of Sub Pop band Six Finger Satellite."
+	}
+]
