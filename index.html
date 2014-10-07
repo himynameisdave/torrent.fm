@@ -43,7 +43,7 @@
 
 							<div 	ng-show="authorized" 
 									class="username">
-									<a class="username-link" ng-href="http://last.fm/user/{{username}}">{{username}}</a>
+									<a class="username-link" ng-href="http://last.fm/user/{{username}}" target="_blank">{{username}}</a>
 							</div>
 							<div 	ng-show="!authorized" class="pull-right">
 								<div 	class="auth-button"
@@ -58,7 +58,7 @@
 		</div>
 
 		<div class="page-container container-fluid main-wrap">
-			<div class="row" ng-if="!authorized">
+			<div class="row" ng-if="!lastfmSession">
 				<div class="col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3 ">
 					<div class="row">
 						<div class="col-xs-12">
@@ -71,7 +71,7 @@
 									You can do this by clicking the login button at the top on the right.
 								</p>
 								<p>
-									All this does is goes over to last.fm real quick, makes you login (if you aren't already) and then allow access for this app to access your profile.
+									All this does is goes over to last.fm real quick, makes you login (if you aren't already) and then allows access for this app to access your profile.
 								</p>
 								<p>
 									We gotta do it like this because last.fm's API requires that you authenticate to access a users recs.
@@ -81,7 +81,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" ng-if="authorized">
+			<div class="row" ng-if="lastfmSession">
 				<div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0 ">
 					<div class="row">
 

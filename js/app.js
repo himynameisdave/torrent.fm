@@ -29,6 +29,7 @@ app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http
 		$scope.hasLocalStorage = false;
 	}
 
+	$scope.lastfmSession = false;
 	$scope.username = '';
 
 	//	Set some defualts for last.fm stuff:
@@ -45,116 +46,95 @@ app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http
 	});
 
 	//	Real callback
-	var callbackUrl = $scope.callbackUrl = 'http://himynameisdave.github.io/torrent.fm/';
+	// var callbackUrl = $scope.callbackUrl = 'http://himynameisdave.github.io/torrent.fm/';
 	//	development callback
-	// var callbackUrl = $scope.callbackUrl = 'http://localhost:8000/app/index.html';
-
-
-	//	Dummy data grab for testing
-	// $http.get('dummydata.json')
-	// .success(function(data){
-	// 	$scope.artists = data;
-
-	// 	//	Handles the "Bio", "Albums", & "Tracks" for each artist car
-		$scope.navs = [];	
-		//	adds an active nav item to each nav
-		for(i=0; i<$scope.artists.length;i++){
-			$scope.navs.push({ active : 1 });
-		}
-
-	// });
+	var callbackUrl = $scope.callbackUrl = 'http://localhost:8000/app/index.html';
 
 
 	$scope.init = function(){
-		
-		var token;
-		$scope.username = '';
 
-		// if(localStorage.session && localStorage.token){
-		// 	$scope.sesson = localStorage.session;
-		// 	$scope.username = localStorage.session.name;
-		// 	token = localStorage.token
-		// 	$scope.authorized = true;
-		// }
+		if( localStorage.lastfmSession ){	
+			// console.log('');
 
-		//	get a token (if it exists);
-		var tokenFromUrl = $.url().param('token');
+			$scope.lastfmSession = JSON.parse( localStorage.lastfmSession );
+			$scope.username = localStorage.lastfmSession.name;
 
-		if(tokenFromUrl){
-			token = tokenFromUrl;
-			// if($scope.hasLocalStorage){
-			// 	localStorage.setItem("token", token);
-			// }
+			if( localStorage.lastfmRecs ){
+				$scope.lastfmRecs = JSON.parse( localStorage.lastfmRecs );
+		    	$scope.updateCards($scope.lastfmRecs);
+
+			}else{
+				$scope.getRecs($scope.lastfmSession);
+			}
+
 		}else{
-			lastfm.auth.getToken({
-				success: function(data){
-					token = data.token;
-				},
-				error: function(data_error){
-					console.log(data_error);
-					token = false;
-				}
-			})
-		}
 
-		if(token){
+			$scope.lastfmSession = false;
 
-	    	$scope.authorized = true;
+			var token;
+			$scope.username = '';
 
+			//	get a token (if it exists);
+			var token = $.url().param('token');
+		
 			lastfm.auth.getSession({
-			    	token: token
-				},
-				{
-			    success: function(data_sess) {
+		    	token: token
+			},
+			{
+			 	success: function(data_sess) {
 			    	// console.log('success auth');
 
 			    	$scope.sesson = data_sess.session
 
-			    	$scope.username = data_sess.session.name;
-			    	$scope.$digest();			
+			    	$scope.lastfmSession = data_sess.session;
+			    	localStorage.lastfmSession = JSON.stringify(data_sess.session);
 
-					lastfm.user.getRecommendedArtists({
-					    user: 	$scope.username,
-					    limit: 	12,
-					    page: 	1
-					},
-					    data_sess.session,
-					{
-					    success: function(data_recs) {
-					    	// console.log(data_recs);
-					    	$scope.recs = data_recs;
-					    	$scope.$digest();
-					    	$scope.updateCards($scope.recs.recommendations);
-					    },
-					    error: function(data_recs_error) {
-					    	console.log('recs_fail');
-					    	console.log(data_recs_error);
-					    }
-					});
+			    	$scope.username = data_sess.session.name;
+			    	$scope.$digest();		
+
+			    	$scope.getRecs($scope.lastfmSession);
 
 			    },
 			    error: function(data_sess_error) {
 			    	console.log('error!');
 			    	console.log(data_sess_error);
-			    	$scope.authorized = false;
 			    }
 			});	
 
-		}else{
-			$scope.authorized = false;
-		}
+		}//ifelse localStorage
 
 	};
 
-	$(document).ready($scope.init);
 
 
 	$scope.authUser = function(){
 		window.location = 'http://www.last.fm/api/auth/?api_key=' + $scope.api_key + '&cb=' + $scope.callbackUrl;
 	};
 
-	$scope.getRecommendedArtists = function(){
-		alert('Calling getRecommendedArtists()');
+	$scope.getRecs = function(sesh){
+		console.log('#1 - getRecs called');
+
+		console.log('#2 - $scope.lastfmSession: ' + $scope.lastfmSession);
+		
+		//	Here's the part where ya check if their recs already been loaded.
+		lastfm.user.getRecommendedArtists({
+		    user: 	$scope.username,
+		    limit: 	12,
+		    page: 	1
+		},
+		  	sesh,
+		{
+		    success: function(data_recs) {
+		    	// console.log(data_recs);
+		    	$scope.recs = data_recs.recommendations;
+				localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
+		    	$scope.$digest();
+		    },
+		    error: function(data_recs_error) {
+		    	console.log('recs_fail');
+		    	console.log(data_recs_error);
+		    }
+		});//End getRecs
 	};
 
 	$scope.updateCards = function(recs){
@@ -264,5 +244,7 @@ app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http
 			return 'error';
 		})
 	};
+
+	$(document).ready($scope.init);
 
 }]);
