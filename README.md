@@ -1,4 +1,4 @@
-torrent.fm `v.1.0.0`
+torrent.fm `v.1.0.1`
 ==========
 ###### a [last.fm](http://last.fm) project 
 
