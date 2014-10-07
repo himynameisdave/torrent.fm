@@ -38,12 +38,12 @@
 							t<span class="hidden-xs">orrent</span>.fm
 						</div>
 					</div>
-					<div 	class="col-xs-2 col-xs-offset-7 col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-7" 
+					<div 	class="col-xs-5 col-xs-offset-4 col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-7" 
 							style="text-align:right;">
 
 							<div 	ng-show="authorized" 
 									class="username">
-									{{username}}
+									<a class="username-link" ng-href="http://last.fm/user/{{username}}">{{username}}</a>
 							</div>
 							<div 	ng-show="!authorized" class="pull-right">
 								<div 	class="auth-button"
@@ -69,6 +69,12 @@
 								</p>
 								<p>
 									You can do this by clicking the login button at the top on the right.
+								</p>
+								<p>
+									All this does is goes over to last.fm real quick, makes you login (if you aren't already) and then allow access for this app to access your profile.
+								</p>
+								<p>
+									We gotta do it like this because last.fm's API requires that you authenticate to access a users recs.
 								</p>
 							</section>
 						</div>
@@ -112,12 +118,25 @@
 
 									<div class="content-area" ng-switch="navs[$index].active">
 										<div class="bio" ng-switch-when="1">
-											<p>
-												{{artist.bio}}
-											</p>
+											<p ng-bind-html="artist.bio"></p>
 										</div>
-										<div ng-switch-when="2">Albums go here!</div>
-										<div ng-switch-when="3">tracks goes here!</div>
+										<div ng-switch-when="2">
+											<p ng-hide="artist.showAlbums">
+												Unable to display albums!
+											</p>
+											<ul >
+												<li ng-repeat="album in artist.albumInfo">
+													<a ng-href="http://google.ca/#q={{album.urlname}}+torrent" target="">	
+													{{album.name}}
+													</a>
+													<div>
+														<span style="font-size: 70%;">Plays: </span>
+														{{album.plays}}
+													</div>
+												</li>
+											</ul>
+										</div>
+										<div ng-switch-when="3">Links to torrents of artists' top tracks coming soon!</div>
 									</div>	
 
 								</article>
@@ -129,7 +148,13 @@
 			</div>
 			<div class="row">
 				<footer class="col-xs-12">
-				Created by <a href="http://twitter.com/dave_lunny">Dave Lunny</a> in the beautiful year 2014
+					Created by <a href="http://twitter.com/dave_lunny">Dave Lunny</a> in the beautiful year 2014
+					<div style="margin: 5px; font-size:80%;">
+						Special thanks to <a href="https://last.fm/">last.fm</a> for hooking up the data. <a href="http://getbootstrap.com/">Bootstrap</a> on the front-end and <a href="https://angularjs.org/">AngularJS</a> for functionality/API calls.
+					</div>
+					<div style="margin: 5px; font-size:80%;">
+						This project can be found on <a href="https://github.com/himynameisdave/torrent.fm">GitHub</a>
+					</div>
 				</footer>
 			</div>
 		</div>	

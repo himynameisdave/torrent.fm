@@ -47,6 +47,16 @@ svg { overflow:visible; }
 
 input[type="submit"], button { outline: none; &:focus{ outline: none; } }
 
+a  {
+	.trans(color, 0.4s);
+	color:		darken(@vrettaBlue, 5%);
+	text-decoration: 	underline;
+	&:hover 	{
+		color:			#ff6666;
+		text-decoration: 	none;
+	}
+}
+
 
 //    CORE CLASSES
 .ib  {
@@ -102,6 +112,8 @@ input[type="submit"], button { outline: none; &:focus{ outline: none; } }
 	.logo 		{
 		font-size: 	30px;
 		margin-top: 	14px;
+		.user-select(none);
+		cursor: 	none;
 	}
 
 	.auth-button {
@@ -121,7 +133,22 @@ input[type="submit"], button { outline: none; &:focus{ outline: none; } }
 		}
 	}	
 	.username {
-		margin-top: 12px;
+		margin-top: 15px;
+		a.username-link {
+			font-size: 			22px;
+			color:				#fff;
+			text-decoration: 	none;
+			border-bottom: 		1px solid rgba(255,255,255,0);
+			.trans(border, 0.4s);
+			.clickable;
+			.user-select(none);
+			&:hover{
+				text-decoration: 	none;
+				border-bottom: 	1px solid #fff;
+			}
+
+		}
+
 	}
 
 
@@ -144,9 +171,14 @@ section.card {
 		.pa6;
 		.pl8;
 		.pr8;
+		height:			auto;
+		min-height: 	@cardHeight;
 		text-align: 	center;
 		p{
-			.mt1; .mb1;
+			margin: 0 auto;
+			.mt2; .mb2;
+			max-width: 	60%;
+			min-width: 	200px;
 		}
 	}
 

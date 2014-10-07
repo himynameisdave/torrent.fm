@@ -1,1 +1,4 @@
 /node-server/
+/app/css/core.css
+/app/css/core.less
+/app/dummydata.json

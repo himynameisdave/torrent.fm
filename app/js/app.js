@@ -15,7 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
-app.controller('Controller', function ($scope, $http) {
+app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http, $sce) {
 	
 	//	Set defaults shit for $http
 	$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
@@ -39,7 +39,7 @@ app.controller('Controller', function ($scope, $http) {
 
 	// Create a LastFM object
 	var lastfm = new LastFM({
-	  apiKey    : '0808b2872e0e3dc09d4530a90deb4418',
+	  apiKey    : api_key,
 	  apiSecret : '17d41ed2a0967ef14bcd3338f23b8a9c',
 	  cache     : cache
 	});
@@ -106,21 +106,22 @@ app.controller('Controller', function ($scope, $http) {
 				},
 				{
 			    success: function(data_sess) {
-			    	console.log('success auth');
+			    	// console.log('success auth');
 
 			    	$scope.sesson = data_sess.session
-			    	localStorage.session = JSON.stringify(data_sess.session);
+
 			    	$scope.username = data_sess.session.name;
 			    	$scope.$digest();			
 
 					lastfm.user.getRecommendedArtists({
-					    user: $scope.username,
-					    limit: 6
+					    user: 	$scope.username,
+					    limit: 	12,
+					    page: 	1
 					},
 					    data_sess.session,
 					{
 					    success: function(data_recs) {
-					    	console.log('recs_success');
+					    	// console.log(data_recs);
 					    	$scope.recs = data_recs;
 					    	$scope.$digest();
 					    	$scope.updateCards($scope.recs.recommendations);
@@ -166,7 +167,6 @@ app.controller('Controller', function ($scope, $http) {
 			var numImgs = (v.image.length) - 1;
 			
 			newArtist.name = v.name;
-			newArtist.mbid = v.mbid;
 			newArtist.img = v.image[numImgs]['#text'];
 
 			$scope.artists.push(newArtist);
@@ -188,22 +188,81 @@ app.controller('Controller', function ($scope, $http) {
 			var urlName = $scope.artists[i].name.split(' ').join('+');
 			$http.get('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist='+urlName+'&api_key='+$scope.api_key+'&format=json')
 			.success(function(data){
-				console.log(data);
+				// console.log(data);
 				$scope.artists[i].bio = data.artist.bio.summary;
+				$scope.artists[i].bio = $sce.trustAsHtml($scope.artists[i].bio);
+				$scope.artists[i].mbid = data.artist.mbid;
+
 				$scope.artists[i].tags = [];
 				$.each(data.artist.tags.tag, function(j, value){
 					if(j < 3){
 						$scope.artists[i].tags[j] = value.name;
 					}
 				});
+
+
+				$scope.getArtistsTopAlbums($scope.artists[i]);
 			})
 			.error(function(data){
-				console.log('Error grabbng info: ');
+				console.log('Error grabbing info: ');
 				console.log(data);
 			})
 		});
 		$scope.$digest();
-		console.log($scope.artists);
+		// console.log($scope.artists);
 	};
 
-});
+
+	$scope.getArtistsTopAlbums = function(artist){
+
+		$http.get('http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&mbid='+artist.mbid+'&api_key='+$scope.api_key+'&format=json')
+		.success(function(data){
+
+			if(!data.error && data.topalbums){
+				artist.albums = data.topalbums.album;
+			}else{
+				//	TODO: this should change the "hasAlbums" text to "No Albums to Display!"
+				console.log(data.message);
+				return;
+			}
+
+			var artistUrlName = artist.name.split(' ').join('+');
+
+			if( artist.albums instanceof Array ){
+
+				artist.showAlbums = true;
+				
+				var limit = artist.albums.length;
+				if(limit > 5){ limit = 5; };
+
+				artist.albumInfo = [];
+				for(k=0; k<limit; k++){
+					artist.albumInfo[k] = {};
+					artist.albumInfo[k].name 	= artist.albums[k].name;
+					artist.albumInfo[k].urlname  = artistUrlName + '+' + artist.albums[k].name.split(' ').join('+');
+					artist.albumInfo[k].plays 	= artist.albums[k].playcount;
+				};		
+
+			}else if(artist.albums){
+
+				artist.showAlbums = true;
+				artist.albumInfo = [{}];
+				artist.albumInfo[0].name 		= artist.albums.name;
+				artist.albumInfo[0].urlname 	= artistUrlName + '+' + artist.albums.name.split(' ').join('+');
+				artist.albumInfo[0].plays 		= artist.albums.playcount;
+
+			}else{
+				artist.showAlbums = false;
+				return 'error';
+			}
+			// $scope.$digest();
+			return artist;
+		})	
+		.error(function(data_error){
+			console.log('Error grabbing albums');
+			console.log(data_error);
+			return 'error';
+		})
+	};
+
+}]);
