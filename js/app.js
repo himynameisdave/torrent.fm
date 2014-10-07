@@ -45,9 +45,9 @@ app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http
 	});
 
 	//	Real callback
-	// var callbackUrl = $scope.callbackUrl = 'http://himynameisdave.github.io/torrent.fm/';
+	var callbackUrl = $scope.callbackUrl = 'http://himynameisdave.github.io/torrent.fm/';
 	//	development callback
-	var callbackUrl = $scope.callbackUrl = 'http://localhost:8000/app/index.html';
+	// var callbackUrl = $scope.callbackUrl = 'http://localhost:8000/app/index.html';
 
 
 	//	Dummy data grab for testing
