@@ -8,6 +8,21 @@
 ,	{
 			"name"	:	"The Juan Maclean"
 		,	"img"	:	"http://userserve-ak.last.fm/serve/_/26231677/The+Juan+Maclean+juan++nancy.jpg"
+		,	"albums" : [
+							{
+								"name"	: 	"Album Name"
+							,	"plays" : 	"478308"
+							}
+						,	{
+								"name"	: 	""
+						}
+						,	{
+								"name"	: 	""
+						}
+						,	{
+								"name"	: 	""
+						}
+						]
 		,	"tags"	:	[ "electronic", "dance", "groove" ]
 		,	"bio"	:	"Prior to becoming one of the most significant acts on the DFA label, John Maclean was a member of Sub Pop band Six Finger Satellite."
 	}
