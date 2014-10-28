@@ -54,7 +54,7 @@ html {
   font-family: 'Lato', 'Roboto', 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
   min-height: 100%;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 100;
   line-height: 25.88854382px;
   color: #333333;
   background: #f2f2f2;
@@ -271,6 +271,7 @@ section.card article.content {
 }
 section.card article.content h3.artist-name {
   font-size: 24px;
+  font-weight: 100;
 }
 section.card article.content div.tags {
   font-size: 10.5px;
@@ -327,6 +328,7 @@ section.card article.content div.content-area {
 section.card article.content div.content-area div.bio {
   font-size: 12px;
   line-height: 19.4172px;
+  font-weight: 300;
 }
 @media screen and (max-width: 590px) {
   section.card {

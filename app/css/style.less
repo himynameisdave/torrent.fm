@@ -1,6 +1,8 @@
 @import (reference) "core.less";
 //	(actual styles go here)
 
+//Override the font-weight from core.less
+@base-font-weight: 100;
 	
 //    BASE RESETS
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, 
@@ -205,6 +207,7 @@ section.card {
 
 		h3.artist-name {
 			font-size: 		24px;
+			font-weight: 	100;
 		}
 		div.tags {
 			font-size: 		10.5px;
@@ -249,8 +252,9 @@ section.card {
 			width: 		100%;
 
 			div.bio {
-				font-size: 	12px;
-				line-height: 12px * 1.6181;
+				font-size: 		12px;
+				line-height: 	12px * 1.6181;
+				font-weight: 	300;
 			}
 
 		}

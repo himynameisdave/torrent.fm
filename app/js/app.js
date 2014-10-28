@@ -15,8 +15,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
-app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http, $sce) {
-	
+app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scope, $http, $sce, $log) {
+		
+
 	//	Set defaults shit for $http
 	$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 
@@ -54,8 +55,6 @@ app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http
 	$scope.init = function(){
 
 		if( localStorage.lastfmSession ){	
-			// console.log('');
-
 			$scope.lastfmSession = JSON.parse( localStorage.lastfmSession );
 			$scope.username = localStorage.lastfmSession.name;
 
@@ -87,7 +86,8 @@ app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http
 			    	$scope.sesson = data_sess.session
 
 			    	$scope.lastfmSession = data_sess.session;
-			    	localStorage.lastfmSession = JSON.stringify(data_sess.session);
+			    	localStorage.lastfmSession = JSON.stringify(data_sess.session);	
+
 
 			    	$scope.username = data_sess.session.name;
 			    	$scope.$digest();		
@@ -104,8 +104,6 @@ app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http
 		}//ifelse localStorage
 
 	};
-
-
 
 	$scope.authUser = function(){
 		window.location = 'http://www.last.fm/api/auth/?api_key=' + $scope.api_key + '&cb=' + $scope.callbackUrl;
@@ -128,6 +126,7 @@ app.controller('Controller', ['$scope', '$http', '$sce', function ($scope, $http
 		    	// console.log(data_recs);
 		    	$scope.recs = data_recs.recommendations;
 				localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
+				$log.log(localStorage.lastfmRecs);
 		    	$scope.$digest();
 		    },
 		    error: function(data_recs_error) {
