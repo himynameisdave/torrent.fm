@@ -28,9 +28,7 @@ gulp.task('less', function(){
 });
 
 gulp.task('styles', function(){
-	plug.livereload.listen()
-	gulp.watch('app/css/style.less', ['less'])
-	.on('change', plug.livereload.changed);
+	gulp.watch('app/css/style.less', ['less']);
 });	
 
 	

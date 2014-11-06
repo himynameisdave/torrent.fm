@@ -15,6 +15,7 @@ Make torrent links open in new tab | N | //////
 Individual Track downloading | N | //////
 Commas every 3 digits for playcounts | N | //////
 [BAD] Bug - after authenticating, no results are returned | N | //////
+More options | N | //////
 More options for results (such as top artists, etc.) | N | //////
 
 

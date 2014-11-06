@@ -1,44 +1,36 @@
-//	Written by Dave Lunny
+
+
+
+//	Declare our app
 var app = angular.module('app', ['ui.router']);
 
 
-app.config(function($stateProvider, $urlRouterProvider) {
-
-	$urlRouterProvider.otherwise("/");
-
-	$stateProvider
-	    .state('home', {
-	      url: "/",
-	      templateUrl: "partials/view.html",
-	      controller: "Controller"
-	    })
-});
-
-
+//	Main controller for the app - all JS stuff is in here
 app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scope, $http, $sce, $log) {
-		
+
+	//	utility: counts which log message it is so that we can 
+	//	see the order of things as they are logged
+	$scope.logNum = 1;
 
 	//	Set defaults shit for $http
 	$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 
-	//reset $scope.artists
+	//	clear $scope.artists
 	$scope.artists = [];
 
-	if(typeof(Storage) !== "undefined") {	
-		$scope.hasLocalStorage = true;
-	} else {
-		$scope.hasLocalStorage = false;
-	}
+	//	quick check to see if the browser supports localStorage
+	$scope.hasLocalStorage = ( typeof(Storage) !== "undefined" ) ? true : false;
 
+	//	because as soon as the app loads we want these to be reset
 	$scope.lastfmSession = false;
 	$scope.username = '';
 
 	//	Set some defualts for last.fm stuff:
 	var api_key = $scope.api_key = '0808b2872e0e3dc09d4530a90deb4418';
 
-	// 	Create a cache object
-	var cache = new LastFMCache();
 
+	// 	Create a cache object (? why - what is this doing and can it be improved)
+	var cache = new LastFMCache();
 	// Create a LastFM object
 	var lastfm = new LastFM({
 	  apiKey    : api_key,
@@ -46,31 +38,33 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 	  cache     : cache
 	});
 
-	//	Real callback
-	// var callbackUrl = $scope.callbackUrl = 'http://himynameisdave.github.io/torrent.fm/';
-	//	development callback
-	var callbackUrl = $scope.callbackUrl = 'http://localhost:8000/app/index.html';
+	//	New callback handles dev and production URLS
+	var callback = $scope.callbackUrl = document.URL;
 
 
+	//	called after the document has fully loaded
+	//	contains all the main funcitonality
 	$scope.init = function(){
 
-		if( localStorage.lastfmSession ){	
+		//	Okay so this is doing a check to see if we've already stored any lastfm data in localStorage
+		if( localStorage.lastfmSession ){		
+$l('There is a lastFmSession in localStorage!');
 			$scope.lastfmSession = JSON.parse( localStorage.lastfmSession );
 			$scope.username = localStorage.lastfmSession.name;
 
 			if( localStorage.lastfmRecs ){
+$l('There is lastfmRecs localStorage!');
 				$scope.lastfmRecs = JSON.parse( localStorage.lastfmRecs );
 		    	$scope.updateCards($scope.lastfmRecs);
 
 			}else{
+$l('There is no lastfmRecs in localStorage!');
 				$scope.getRecs($scope.lastfmSession);
 			}
 
 		}else{
-
+$l('There is no lastfmSession in localStorage!');
 			$scope.lastfmSession = false;
-
-			var token;
 			$scope.username = '';
 
 			//	get a token (if it exists);
@@ -81,7 +75,7 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 			},
 			{
 			 	success: function(data_sess) {
-			    	// console.log('success auth');
+$l('Successfully retrieved a lastfm session');
 
 			    	$scope.sesson = data_sess.session
 
@@ -96,7 +90,7 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 
 			    },
 			    error: function(data_sess_error) {
-			    	console.log('error!');
+$l('error retrieving lastfmSession!');
 			    	console.log(data_sess_error);
 			    }
 			});	
@@ -110,10 +104,8 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 	};
 
 	$scope.getRecs = function(sesh){
-		console.log('#1 - getRecs called');
+$l('getRecs called!');
 
-		console.log('#2 - $scope.lastfmSession: ' + $scope.lastfmSession);
-		
 		//	Here's the part where ya check if their recs already been loaded.
 		lastfm.user.getRecommendedArtists({
 		    user: 	$scope.username,
@@ -244,6 +236,17 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 		})
 	};
 
+	var $l = function(msg){
+		console.log( '~~~~~~~~  ' + $scope.logNum + '  ~~~~~~~~');
+		console.log(msg);
+		console.log( '=====================');
+
+		var t = $('#devlog').html();
+		$('#devlog').html(t + $scope.logNum + '| ' + msg + '<br/>');
+		$scope.logNum++;
+	};
+
+	//	Call init when the document has loaded
 	$(document).ready($scope.init);
 
 }]);

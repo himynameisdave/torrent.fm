@@ -359,3 +359,18 @@ footer a:hover {
   color: #ff6666;
   text-decoration: none;
 }
+div.devlog {
+  border-radius: 7.5px;
+  background: rgba(100, 100, 100, 0.5);
+  color: #dcdcdc;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 19.41640787px;
+  max-width: 35%;
+  padding: 15px;
+  position: fixed;
+  bottom: 5%;
+  left: 10px;
+  width: 100%;
+  z-index: 900;
+}
