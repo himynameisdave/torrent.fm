@@ -49,8 +49,13 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 		//	Okay so this is doing a check to see if we've already stored any lastfm data in localStorage
 		if( localStorage.lastfmSession ){		
 $l('There is a lastFmSession in localStorage!');
+			// grab that old localstorage session of it
 			$scope.lastfmSession = JSON.parse( localStorage.lastfmSession );
-			$scope.username = localStorage.lastfmSession.name;
+			//	This is where our username should get retrieved;					
+			$scope.username = $scope.lastfmSession.name;
+			$scope.authorized = true;					
+$l('Logging the old lastfm session for info');
+			$log.log($scope.lastfmSession);
 
 			if( localStorage.lastfmRecs ){
 $l('There is lastfmRecs localStorage!');
@@ -81,9 +86,10 @@ $l('Successfully retrieved a lastfm session');
 
 			    	$scope.lastfmSession = data_sess.session;
 			    	localStorage.lastfmSession = JSON.stringify(data_sess.session);	
-
-
-			    	$scope.username = data_sess.session.name;
+					// localStorage.lastfmSession.name = data_sess.session.name;
+					$scope.username = data_sess.session.name;
+			    	$scope.authorized = true;
+$l($scope.username);
 			    	$scope.$digest();		
 
 			    	$scope.getRecs($scope.lastfmSession);
@@ -118,13 +124,15 @@ $l('getRecs called!');
 		  	sesh,
 		{
 		    success: function(data_recs) {
-		    	// console.log(data_recs);
+$l('Successfully got recs!!');
 		    	$scope.recs = data_recs.recommendations;
 				localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
-				$log.log(localStorage.lastfmRecs);
+		    	$scope.updateCards($scope.recs);
 		    	$scope.$digest();
+$l($scope.artists);
 		    },
 		    error: function(data_recs_error) {
+$l('Failed to get recs!!');
 		    	console.log('recs_fail');
 		    	console.log(data_recs_error);
 		    }
@@ -134,7 +142,6 @@ $l('getRecs called!');
 	$scope.updateCards = function(recs){
 
 		// console.log(recs.artist)
-
 		$.each(recs.artist, function(i,v){
 
 			var newArtist = {};
@@ -226,7 +233,7 @@ $l('getRecs called!');
 					artist.albumInfo[k] = {};
 					artist.albumInfo[k].name 	= artist.albums[k].name;
 					artist.albumInfo[k].urlname  = artistUrlName + '+' + artist.albums[k].name.split(' ').join('+');
-					artist.albumInfo[k].plays 	= artist.albums[k].playcount;
+					artist.albumInfo[k].plays 	= commaSeparateNumber(artist.albums[k].playcount);
 				};		
 
 			}else if(artist.albums){
@@ -235,8 +242,8 @@ $l('getRecs called!');
 				artist.albumInfo = [{}];
 				artist.albumInfo[0].name 		= artist.albums.name;
 				artist.albumInfo[0].urlname 	= artistUrlName + '+' + artist.albums.name.split(' ').join('+');
-				artist.albumInfo[0].plays 		= artist.albums.playcount;
-
+				artist.albumInfo[0].plays 		= commaSeparateNumber(artist.albums.playcount);
+				
 			}else{
 				artist.showAlbums = false;
 				return 'error';
@@ -245,8 +252,8 @@ $l('getRecs called!');
 			return artist;
 		})	
 		.error(function(data_error){
-			console.log('Error grabbing albums');
-			console.log(data_error);
+			$log.log('Error grabbing albums');
+			$log.log(data_error);
 			return 'error';
 		})
 	};
@@ -267,13 +274,24 @@ $l('getRecs called!');
 
 	$scope.clearLocalStorage = function(){
 		localStorage.clear();
+		location.reload();
 	};
 
 	//	This takes the bio and shortens it and adds a sweet 'read more' link to it.
 	var truncateBio = function(str, size){
 		var trim = $.trim(str).substring(0, size).split(" ").slice(0, -1).join(" ") + "...";
 		return trim.replace("&amp;", "&").replace("&quot;", "\"");
-	};
+	};	
+
+	//	add commas to the playcounts using this
+	//	Thanks, StackOverflow community: http://stackoverflow.com/questions/3883342/add-commas-to-a-number-in-jquery
+	var commaSeparateNumber = function(val){
+    while (/(\d+)(\d{3})/.test(val.toString())){
+      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+    }
+    return val;
+  }
+
 
 	//	Call init when the document has loaded
 	$(document).ready($scope.init);

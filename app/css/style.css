@@ -434,6 +434,24 @@ footer a:hover {
   color: #ff6666;
   text-decoration: none;
 }
+footer .socials {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+footer .socials .social-btn {
+  text-align: center;
+  display: block;
+  margin: 10px auto 0;
+  width: 100px;
+  padding: 0;
+}
+footer .socials .social-btn iframe {
+  margin-left: 10px;
+}
+footer .socials .social-btn:last-child {
+  margin-top: -10px;
+}
 div.devlog {
   border-radius: 7.5px;
   background: rgba(100, 100, 100, 0.5);

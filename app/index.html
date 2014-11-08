@@ -47,7 +47,6 @@
 					</div>
 					<div 	class="col-xs-5 col-xs-offset-4 col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-7" 
 							style="text-align:right;">
-
 							<div 	ng-show="authorized" 
 									class="username">
 									<a class="username-link" ng-href="http://last.fm/user/{{username}}" target="_blank">{{username}}</a>
@@ -165,11 +164,16 @@
 			<div class="row">
 				<footer class="col-xs-12">
 					Created by <a href="http://twitter.com/dave_lunny">Dave Lunny</a> in the beautiful year 2014
-					<div style="margin: 5px; font-size:80%;">
+					<div style="margin: -5px 5px 5px; font-size:85%;">
 						Special thanks to <a href="https://last.fm/">last.fm</a> for hooking up the data. <a href="http://getbootstrap.com/">Bootstrap</a> on the front-end and <a href="https://angularjs.org/">AngularJS</a> for functionality/API calls.
 					</div>
-					<div style="margin: 5px; font-size:80%;">
-						This project can be found on <a href="https://github.com/himynameisdave/torrent.fm">GitHub</a>
+					<div class="socials">
+						<div class="social-btn">
+							<iframe src="http://ghbtns.com/github-btn.html?user=himynameisdave&repo=torrent.fm&type=watch&count=true" height="30" width="118" frameborder="0" scrolling="0" style="width:118px; height: 30px;" allowTransparency="true"></iframe>
+						</div>
+						<div class="social-btn">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://himynameisdave.github.io/torrent.fm/"  >Tweet</a><script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
+						</div>
 					</div>
 				</footer>
 			</div>

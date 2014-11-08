@@ -317,6 +317,7 @@ footer {
 	text-align:		center;
 	font-size: 		12px;
 	.mt5; .mb5;
+	
 	a {
 		color:		@vrettaBlue;
 		text-decoration: underline;
@@ -326,7 +327,30 @@ footer {
 			text-decoration: none;
 		}
 	}
+
+	.socials {
+		.center; .mauto();
+		width: 100%;
+
+		.social-btn {
+			.center; 
+			display: block;
+			margin: 10px auto 0;
+			width: 100px;
+			padding: 0;
+			iframe {
+				margin-left: 10px;
+			}
+			&:last-child {
+				margin-top: -10px;
+			}
+		}
+	}
+
 }
+
+
+
 
 
 

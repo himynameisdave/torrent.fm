@@ -21,8 +21,9 @@ gulp.task('less', function(){
 				style: 'compressed'
 			}))
 		//LESS error catch
-		.on('error', function(){
-			console.log('Error compiling LESS!');
+		.on('error', function(e){
+			console.log('ERROR ON LINE ' + e.line);
+			console.log(e.message);
 		})
 		.pipe(gulp.dest('app/css/'));
 });

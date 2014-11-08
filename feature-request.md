@@ -12,12 +12,16 @@ Linked tags 		| 	Y 		| [1.0.3](https://github.com/himynameisdave/torrent.fm/rele
 Fix weird scrolling issue (with content)* | Y | [1.0.3](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.3)
 Truncate the bio so it says less, but also have the "read more" link | Y | [1.0.3](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.3)
 Make torrent links open in new tab | Y | [1.0.3](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.3)
+Commas every 3 digits for playcounts | Y | [1.0.4](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.4)
+[BAD] Bug - after authenticating, no results are returned | Y | [1.0.4](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.4)
+Social btns | Y | [1.0.4](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.4)
 Check when last time new data was pulled | N | //////
 Individual Track downloading | N | //////
-Commas every 3 digits for playcounts | N | //////
-[BAD] Bug - after authenticating, no results are returned | N | //////
 More results as you scroll down| N | //////
 More options for results (such as top artists, etc.) | N | //////
+Show years active for artist | N | //////
+Preloader when fetching data | N | //////
+Redesign of albums section | N | //////
 
 *scroll issue was fixed via the content Truncating
 
