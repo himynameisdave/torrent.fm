@@ -7,16 +7,18 @@
 One Auth			|	Y 		| 1.0.1
 Cache data instead of pulling again | Y | 1.0.1
 Font size too tiny font body text | Y | 1.0.1
-Linked artist name 	| 	N 		| //////
-Linked tags 		| 	N 		| //////
+Linked artist name 	| 	Y 		| 1.0.3
+Linked tags 		| 	Y 		| 1.0.3
+Fix weird scrolling issue (with content)* | Y | 1.0.3
+Truncate the bio so it says less, but also have the "read more" link | Y | 1.0.3
+Make torrent links open in new tab | Y | 1.0.3
 Check when last time new data was pulled | N | //////
-Fix weird scrolling issue | N | //////
-Make torrent links open in new tab | N | //////
 Individual Track downloading | N | //////
 Commas every 3 digits for playcounts | N | //////
 [BAD] Bug - after authenticating, no results are returned | N | //////
-More options | N | //////
+More results as you scroll down| N | //////
 More options for results (such as top artists, etc.) | N | //////
-Truncate the bio so it says less, but also have the "read more" link | N | //////
+
+*scroll issue was fixed via the content Truncating
 
 More features to come. Meantime, [get downloading](http://himynameisdave.github.io/torrent.fm/)!

@@ -91,18 +91,22 @@
 			<div class="row" ng-if="lastfmSession">
 				<div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0 ">
 					<div class="row">
-
-
 						<div class="col-xs-12 col-lg-6" ng-repeat="artist in artists track by $index">
 							<section class="card">
 								<div class="main-img" style="background-image: url({{artist.img}});"></div>
 								<article class="content">
-									<h3 class="artist-name">{{artist.name}}</h3>
+									<h3 class="artist-name">
+										<a class="artist-name-link" ng-href="{{artist.artistLink}}" target="_blank">
+										{{artist.name}}
+										</a>
+									</h3>
 									<div class="tags">
-										<span 	class="tag" 
-												ng-repeat="tag in artist.tags">
-												{{tag}}
-										</span>
+										<a 	class="tag"
+												ng-repeat="tag in artist.tags"
+												ng-href="{{tag.tagLink}}"
+												target="_blank">
+												{{tag.tagName}}
+										</a>
 									</div>
 
 									<nav class="card-nav">
@@ -125,7 +129,12 @@
 
 									<div class="content-area" ng-switch="navs[$index].active">
 										<div class="bio" ng-switch-when="1">
-											<p ng-bind-html="artist.bio"></p>
+												<div>
+													{{artist.bio}}
+												</div>
+												<a class="read-more-link" ng-href="{{artist.artistLink}}" target="_blank">Read more about {{artist.name}} on Last.fm!</a>
+
+												<!-- <p ng-bind-html="artist.bio"></p> -->
 										</div>
 										<div ng-switch-when="2">
 											<p ng-hide="artist.showAlbums">
@@ -133,7 +142,7 @@
 											</p>
 											<ul >
 												<li ng-repeat="album in artist.albumInfo">
-													<a ng-href="http://google.ca/#q={{album.urlname}}+torrent" target="">	
+													<a ng-href="http://google.ca/#q={{album.urlname}}+torrent" target="_blank">	
 													{{album.name}}
 													</a>
 													<div>

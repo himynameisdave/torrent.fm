@@ -301,22 +301,33 @@ section.card article.content h3.artist-name {
   font-size: 24px;
   font-weight: 100;
 }
+section.card article.content h3.artist-name a.artist-name-link {
+  text-decoration: none;
+  color: #333;
+}
+section.card article.content h3.artist-name a.artist-name-link:hover {
+  color: #00aacc;
+}
 section.card article.content div.tags {
   font-size: 10.5px;
   font-weight: 900;
   color: #00aacc;
 }
-section.card article.content div.tags span.tag {
+section.card article.content div.tags a.tag {
   margin-left: 12px;
+  text-decoration: none;
 }
-section.card article.content div.tags span.tag:first-child {
+section.card article.content div.tags a.tag:first-child {
   margin-left: 6px;
 }
-section.card article.content div.tags span.tag:nth-of-type(2) {
+section.card article.content div.tags a.tag:nth-of-type(2) {
   color: #00bbe0;
 }
-section.card article.content div.tags span.tag:nth-of-type(3) {
+section.card article.content div.tags a.tag:nth-of-type(3) {
   color: #00ccf5;
+}
+section.card article.content div.tags a.tag:hover {
+  text-decoration: underline;
 }
 section.card article.content nav.card-nav {
   width: 100%;
@@ -359,6 +370,10 @@ section.card article.content div.content-area div.bio {
   line-height: 19.4172px;
   font-weight: 300;
   overflow-y: scroll;
+}
+section.card article.content div.content-area div.bio a.read-more-link {
+  display: block;
+  font-size: 14px;
 }
 @media screen and (max-width : 991px) and (min-width : 760px) {
   section.card article.content {
@@ -427,6 +442,8 @@ div.devlog {
   font-size: 12px;
   line-height: 19.41640787px;
   max-width: 35%;
+  max-height: 250px;
+  overflow-y: scroll;
   padding: 15px;
   position: fixed;
   bottom: 5%;

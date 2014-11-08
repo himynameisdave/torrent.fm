@@ -162,15 +162,27 @@ $l('getRecs called!');
 			var urlName = $scope.artists[i].name.split(' ').join('+');
 			$http.get('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist='+urlName+'&api_key='+$scope.api_key+'&format=json')
 			.success(function(data){
-				// console.log(data);
+				//	Gets the shorter bio, html tags and all
 				$scope.artists[i].bio = data.artist.bio.summary;
-				$scope.artists[i].bio = $sce.trustAsHtml($scope.artists[i].bio);
+				//	regEx that gets rid of the HTML tags (thanks CSS Tricks!)
+				$scope.artists[i].bio = $scope.artists[i].bio.replace(/(<([^>]+)>)/ig,"");
+				//	This is a rough way to guage how much of the bio to snip (based on browser width)
+				//	TODO: watch window resize and update bio truncation on resize
+				var bioSize = 200 + parseInt($( window ).width())/10; 
+				//	
+				$scope.artists[i].bio = truncateBio( $scope.artists[i].bio, bioSize )
+				$scope.artists[i].artistLink = "http://www.last.fm/music/" + urlName;
 				$scope.artists[i].mbid = data.artist.mbid;
 
 				$scope.artists[i].tags = [];
 				$.each(data.artist.tags.tag, function(j, value){
-					if(j < 3){
-						$scope.artists[i].tags[j] = value.name;
+					// var numberOfTagsDisplayed = data.artist.tags.tag.length;
+					var numberOfTagsDisplayed = 3 - 1;//minus 1 cuz it's <=
+
+					if(j <= numberOfTagsDisplayed ){
+						$scope.artists[i].tags[j] = {};
+						$scope.artists[i].tags[j].tagName = value.name;
+						$scope.artists[i].tags[j].tagLink = value.url
 					}
 				});
 
@@ -257,6 +269,11 @@ $l('getRecs called!');
 		localStorage.clear();
 	};
 
+	//	This takes the bio and shortens it and adds a sweet 'read more' link to it.
+	var truncateBio = function(str, size){
+		var trim = $.trim(str).substring(0, size).split(" ").slice(0, -1).join(" ") + "...";
+		return trim.replace("&amp;", "&").replace("&quot;", "\"");
+	};
 
 	//	Call init when the document has loaded
 	$(document).ready($scope.init);

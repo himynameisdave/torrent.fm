@@ -214,19 +214,32 @@ section.card {
 		h3.artist-name {
 			font-size: 		24px;
 			font-weight: 	100;
+
+			a.artist-name-link {
+				text-decoration: none;
+				color:			#333;
+				&:hover{
+					color:	@vrettaBlue;
+				}
+			}
+
 		}
 		div.tags {
 			font-size: 		10.5px;
 			font-weight: 	900;
 			color:			@vrettaBlue;
-			span.tag {
+			a.tag {
 				.ml2;
+				text-decoration: none;
 				&:first-child{
 					.ml1;
 				}
 				&:nth-of-type(2){ color: lighten(@vrettaBlue, 4%); }
 				&:nth-of-type(3){ color: lighten(@vrettaBlue, 8%); }
 
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 		}
 		nav.card-nav {
@@ -262,10 +275,15 @@ section.card {
 				line-height: 	12px * 1.6181;
 				font-weight: 	300;
 				overflow-y: 	scroll;
+
+				a.read-more-link {
+					display: block;
+					font-size: 	14px;
+				}
+
 			}
 
 		}
-
 
 		@bigTab: 		~"screen and (max-width : 991px) and (min-width : 760px)";
 		@notebooker: 	~"screen and (max-width : 1199px) and (min-width : 992px)";
@@ -326,6 +344,8 @@ footer {
 		font-size: 			12px;
 		line-height: 		12px * @golden-ratio;
 		max-width: 			35%;
+		max-height: 		250px;
+		overflow-y: 		scroll;
 		padding: 			15px;
 		position: 			fixed;
 				bottom:		5%;

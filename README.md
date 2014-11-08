@@ -1,6 +1,6 @@
 torrent.fm 
 ==========
-######`v.1.0.2`
+#####`v.1.0.3`
 
 ###### a [last.fm](http://last.fm) project 
 
