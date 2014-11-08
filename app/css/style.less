@@ -90,6 +90,25 @@ a  {
 }
 
 
+//	btn mixin
+.btn(){
+	border: 		1px solid #fff;
+	border-radius: 	6px;
+	margin:			10px auto 0;
+	max-width: 		100px;
+	padding: 		7px 16px;
+	text-align: 	center;
+	.clickable;
+	.trans(background, 0.3s);
+	&:hover	{
+		background:		rgba(250,250,250,0.99);
+		color:			#ff6666;
+	}
+}
+// basic btn class
+.btn {
+	.btn();
+}
 
 ////////////////////////
 //		REAL STYLES
@@ -119,20 +138,7 @@ a  {
 	}
 
 	.auth-button {
-		text-align: 	center;
-		padding: 		7px 16px;
-		border-radius: 	6px;
-		border: 		1px solid #fff;
-		text-align: 	center;
-		max-width: 		100px;
-		margin:			0 auto;
-		margin-top: 	10px;
-		.clickable;
-		.trans(background, 0.3s);
-		&:hover	{
-			background:		rgba(250,250,250,0.99);
-			color:			#ff6666;
-		}
+		.btn();
 	}	
 	.username {
 		margin-top: 15px;
@@ -201,7 +207,7 @@ section.card {
 		.ib;
 		vertical-align: top;
 		width: 			55%;
-		overflow-y: 	scroll;
+		overflow-y: 	hidden;
 		max-height: 	100%;
 
 
@@ -250,14 +256,30 @@ section.card {
 		}
 		div.content-area {
 			width: 		100%;
-
+			overflow-y: 	scroll;
 			div.bio {
 				font-size: 		12px;
 				line-height: 	12px * 1.6181;
 				font-weight: 	300;
+				overflow-y: 	scroll;
 			}
 
 		}
+
+
+		@bigTab: 		~"screen and (max-width : 991px) and (min-width : 760px)";
+		@notebooker: 	~"screen and (max-width : 1199px) and (min-width : 992px)";
+		@proLaptop: 	~"screen and (min-width : 1340px)";
+		@desktoper: 	~"screen and (min-width : 1620px)";
+		@biggieSmalls: 	~"screen and (min-width : 1920px)";
+		@douchebagScreen: ~"screen and (min-width : 2275px)";
+
+		@media @bigTab { width: 65%; }
+		@media @notebooker { width: 68%; }
+		@media @proLaptop { width: 60%; }
+		@media @desktoper { width: 65%; }
+		@media @biggieSmalls { width: 70%; }
+		@media @douchebagScreen { width: 75%; }
 
 
 	}
@@ -269,7 +291,6 @@ section.card {
 		}
 		article.content {
 			.pa2;
-
 		}
 	}
 }
@@ -311,4 +332,11 @@ footer {
 				left:		10px;
 		width:				100%;
 		z-index:			900;
+	}
+	.clear-storage-btn {
+		.btn();
+		font-size: 11px;
+		padding: 	5px 12px;
+		display: 	block;
+		max-width: 	135px;
 	}

@@ -99,9 +99,12 @@ $l('error retrieving lastfmSession!');
 
 	};
 
+
+	///		WHY IS THIS NEXT FUNCTION USED!?  	//
 	$scope.authUser = function(){
 		window.location = 'http://www.last.fm/api/auth/?api_key=' + $scope.api_key + '&cb=' + $scope.callbackUrl;
 	};
+
 
 	$scope.getRecs = function(sesh){
 $l('getRecs called!');
@@ -236,15 +239,24 @@ $l('getRecs called!');
 		})
 	};
 
+	//////////////////////////////////////////////
+	//			  UTILITY FUNCTIONS				//
+	//////////////////////////////////////////////
+
 	var $l = function(msg){
 		console.log( '~~~~~~~~  ' + $scope.logNum + '  ~~~~~~~~');
 		console.log(msg);
 		console.log( '=====================');
 
-		var t = $('#devlog').html();
-		$('#devlog').html(t + $scope.logNum + '| ' + msg + '<br/>');
+		var t = $('#devlog p.console').html();
+		$('#devlog p.console').html(t + $scope.logNum + '| ' + msg + '<br/>');
 		$scope.logNum++;
 	};
+
+	$scope.clearLocalStorage = function(){
+		localStorage.clear();
+	};
+
 
 	//	Call init when the document has loaded
 	$(document).ready($scope.init);

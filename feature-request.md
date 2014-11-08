@@ -17,6 +17,6 @@ Commas every 3 digits for playcounts | N | //////
 [BAD] Bug - after authenticating, no results are returned | N | //////
 More options | N | //////
 More options for results (such as top artists, etc.) | N | //////
-
+Truncate the bio so it says less, but also have the "read more" link | N | //////
 
 More features to come. Meantime, [get downloading](http://himynameisdave.github.io/torrent.fm/)!

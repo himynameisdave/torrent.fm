@@ -1,6 +1,5 @@
 /node-server/
 /app/css/core.css
-/app/css/core.less
 /app/dummydata.json
 /node_modules/.bin/gulp
 /node_modules/gulp-less/.npmignore
