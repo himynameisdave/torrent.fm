@@ -20,6 +20,9 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 	//	clear $scope.artists
 	$scope.artists = [];
 
+	//	what page of recs we should have loaded
+	$scope.recsPage = 1;
+
 	//	quick check to see if the browser supports localStorage
 	$scope.hasLocalStorage = ( typeof(Storage) !== "undefined" ) ? true : false;
 
@@ -116,17 +119,18 @@ $l('error retrieving lastfmSession!');
 
 	$scope.getRecs = function(sesh){
 $l('getRecs called!');
-
+		
 		//	Here's the part where ya check if their recs already been loaded.
 		lastfm.user.getRecommendedArtists({
 		    user: 	$scope.username,
 		    limit: 	12,
-		    page: 	1
+		    page: 	$scope.recsPage
 		},
 		  	sesh,
 		{
 		    success: function(data_recs) {
 $l('Successfully got recs!!');
+				$scope.recsPage++;
 		    	$scope.recs = data_recs.recommendations;
 				localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
 		    	$scope.updateCards($scope.recs);
