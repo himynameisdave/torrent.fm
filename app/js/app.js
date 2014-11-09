@@ -1,5 +1,7 @@
 
-
+////////////////////////
+// torrent.fm v.1.1.0 //
+////////////////////////
 
 //	Declare our app
 var app = angular.module('app', []);
