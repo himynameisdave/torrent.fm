@@ -15,9 +15,9 @@ Make torrent links open in new tab | Y | [1.0.3](https://github.com/himynameisda
 Commas every 3 digits for playcounts | Y | [1.0.4](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.4)
 [BAD] Bug - after authenticating, no results are returned | Y | [1.0.4](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.4)
 Social btns | Y | [1.0.4](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.0.4)
+More results as you scroll down| Y | [Pull Req. #1](https://github.com/himynameisdave/torrent.fm/pull/1)
 Check when last time new data was pulled | N | //////
 Individual Track downloading | N | //////
-More results as you scroll down| N | //////
 More options for results (such as top artists, etc.) | N | //////
 Show years active for artist | N | //////
 Preloader when fetching data | N | //////
