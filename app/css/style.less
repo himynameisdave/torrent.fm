@@ -1,4 +1,4 @@
-//	v1.1.0
+//	v1.1.0.1
 @import (reference) "core.less";
 //	(actual styles go here)
 
@@ -178,15 +178,14 @@ section.card {
 	&.no-data {
 		.box-sizing();
 		.pa6;
-		.pl8;
-		.pr8;
+
 		height:			auto;
 		min-height: 	@cardHeight;
 		text-align: 	center;
 		p{
 			margin: 0 auto;
 			.mt2; .mb2;
-			max-width: 	60%;
+			max-width: 	100%;
 			min-width: 	200px;
 		}
 	}
@@ -314,6 +313,20 @@ section.card {
 	}
 }
 
+.get-recs-btn {
+	.btn();
+	border-color: @vrettaRed;
+	color:	@vrettaRed;
+	max-width: 300px;
+	.mt6;
+
+	&:hover{
+		background: @vrettaRed;
+		color:		#fff;
+		border-color: #fff;
+	}
+}
+
 footer {
 	text-align:		center;
 	font-size: 		12px;
@@ -349,12 +362,6 @@ footer {
 	}
 
 }
-
-
-
-
-
-
 
 
 

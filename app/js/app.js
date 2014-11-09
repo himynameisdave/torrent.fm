@@ -20,6 +20,9 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 	//	clear $scope.artists
 	$scope.artists = [];
 
+	//	what page of recs we should have loaded
+	$scope.recsPage = 1;
+
 	//	quick check to see if the browser supports localStorage
 	$scope.hasLocalStorage = ( typeof(Storage) !== "undefined" ) ? true : false;
 
@@ -48,6 +51,11 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 	//	contains all the main funcitonality
 	$scope.init = function(){
 
+		if ( $scope.hasLocalStorage && localStorage.getItem('recsPage')) {
+$l('localStorage exists and also there is a recs page from before');
+			$scope.recsPage = localStorage.recsPage;
+		}
+
 		//	Okay so this is doing a check to see if we've already stored any lastfm data in localStorage
 		if( localStorage.lastfmSession ){		
 $l('There is a lastFmSession in localStorage!');
@@ -56,16 +64,15 @@ $l('There is a lastFmSession in localStorage!');
 			//	This is where our username should get retrieved;					
 			$scope.username = $scope.lastfmSession.name;
 			$scope.authorized = true;					
-$l('Logging the old lastfm session for info');
-			$log.log($scope.lastfmSession);
 
 			if( localStorage.lastfmRecs ){
 $l('There is lastfmRecs localStorage!');
 				$scope.lastfmRecs = JSON.parse( localStorage.lastfmRecs );
+		    	$log.log($scope.lastfmRecs);
 		    	$scope.updateCards($scope.lastfmRecs);
 
 			}else{
-$l('There is no lastfmRecs in localStorage!');
+$l('There is no lastfmecs in localStorage!');
 				$scope.getRecs($scope.lastfmSession);
 			}
 
@@ -93,7 +100,6 @@ $l('Successfully retrieved a lastfm session');
 			    	$scope.authorized = true;
 $l($scope.username);
 			    	$scope.$digest();		
-
 			    	$scope.getRecs($scope.lastfmSession);
 
 			    },
@@ -116,22 +122,40 @@ $l('error retrieving lastfmSession!');
 
 	$scope.getRecs = function(sesh){
 $l('getRecs called!');
+		if(sesh === 'gimmieMore'){
+			sesh = $scope.lastfmSession;
+		}
+		var limit = 12;
+		// if($scope.recsPage < 3){ limit = 12; }
+		// if($scope.recsPage >= 3 && $scope.recsPage < 6 ){ limit = 6; }
+		// if($scope.recsPage >= 6 ){ limit = 4; }
 
 		//	Here's the part where ya check if their recs already been loaded.
 		lastfm.user.getRecommendedArtists({
 		    user: 	$scope.username,
-		    limit: 	12,
-		    page: 	1
+		    limit: 	limit,
+		    page: 	$scope.recsPage
 		},
 		  	sesh,
 		{
 		    success: function(data_recs) {
 $l('Successfully got recs!!');
+				$scope.recsPage++;
 		    	$scope.recs = data_recs.recommendations;
-				localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
+
+		    	if( localStorage.getItem('lastfmRecs') ){
+		    		var hmstrngs = JSON.parse(localStorage.lastfmRecs);
+					$.each($scope.recs.artist, function(k, val){
+						hmstrngs.artist.push(val);
+					})
+					localStorage.lastfmRecs = JSON.stringify(hmstrngs);
+					localStorage.recsPage = $scope.recsPage;
+		    	}else{
+					localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
+		    	}
 		    	$scope.updateCards($scope.recs);
 		    	$scope.$digest();
-$l($scope.artists);
+// $l($scope.artists);
 		    },
 		    error: function(data_recs_error) {
 $l('Failed to get recs!!');
@@ -147,9 +171,9 @@ $l('Failed to get recs!!');
 		$.each(recs.artist, function(i,v){
 
 			var newArtist = {};
-			var numImgs = (v.image.length) - 1;
-			
 			newArtist.name = v.name;
+				
+			var numImgs = (v.image.length) - 1;
 			newArtist.img = v.image[numImgs]['#text'];
 
 			$scope.artists.push(newArtist);
