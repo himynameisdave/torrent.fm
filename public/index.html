@@ -1,38 +1,23 @@
 <!DOCTYPE HTML>
-<html ng-app="app">
+<html data-ng-app="app">
 <head>
 
 	<title>torrent.fm</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 	<meta name="description" content="A small Angular app to make it easier to download your last.fm recommendations.">
-	<meta name="keywords" content="last.fm, torrents, download, music, Angular.js, Dave Lunny, web development, UI Design">
+	<meta name="keywords" content="last.fm, torrents, download, music, Angular.js, Dave Lunny, web development, UI Design, music">
 	<meta name="author" content="Dave Lunny">
 
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 
-	<script type="text/javascript" src="lib/js/angular.js"></script>
-
-	<script type="text/javascript" src="lib/js/jquery.js"></script>
-	<script type="text/javascript" src="lib/js/lastfm.api.min.js"></script>
-	<script type="text/javascript" src="lib/js/purl.min.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
-
-	<link href='lib/css/lato.css' rel='stylesheet' type='text/css'>
-	<link href="lib/css/font-awesome.css" rel="stylesheet" />
-	<link href="lib/css/bootstrap.css" rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" href="css/style.css"	/>
+	<script type="text/javascript" src="core.js"></script>
+	<script type="text/javascript" src="japp.js"></script>
+	<link rel="stylesheet" type="text/css" href="core.css"	/>
 
 </head>
-<body ng-controller="Controller">
-		
-		<div id="devlog" class="devlog">
-			<div class="clear-storage-btn" ng-click="clearLocalStorage()">
-				Clear Storage
-			</div>
-			<p class="console"></p>
-		</div>
+<body data-ng-controller="Controller">
 
 		<div class="topbar">
 			<div class="page-container container-fluid">
@@ -44,13 +29,13 @@
 					</div>
 					<div 	class="col-xs-5 col-xs-offset-4 col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-7" 
 							style="text-align:right;">
-							<div 	ng-show="authorized" 
+							<div 	data-ng-show="authorized" 
 									class="username">
-									<a class="username-link" ng-href="http://last.fm/user/{{username}}" target="_blank">{{username}}</a>
+									<a class="username-link" data-ng-href="http://last.fm/user/{{username}}" target="_blank">{{username}}</a>
 							</div>
-							<div 	ng-show="!authorized" class="pull-right">
+							<div 	data-ng-show="!authorized" class="pull-right">
 								<div 	class="auth-button"
-										ng-click="authUser()">	
+										data-ng-click="authUser()">	
 									Login
 								</div>
 							</div>
@@ -61,7 +46,7 @@
 		</div>
 
 		<div class="page-container container-fluid main-wrap">
-			<div class="row" ng-if="!lastfmSession">
+			<div class="row" data-ng-if="!lastfmSession">
 				<div class="col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3 ">
 					<div class="row">
 						<div class="col-xs-12">
@@ -84,22 +69,22 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" ng-if="lastfmSession">
+			<div class="row" data-ng-if="lastfmSession">
 				<div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0 ">
 					<div class="row">
-						<div class="col-xs-12 col-lg-6" ng-repeat="artist in artists track by $index">
+						<div class="col-xs-12 col-lg-6" data-ng-repeat="artist in artists track by $index">
 							<section class="card">
 								<div class="main-img" style="background-image: url({{artist.img}});"></div>
 								<article class="content">
 									<h3 class="artist-name">
-										<a class="artist-name-link" ng-href="{{artist.artistLink}}" target="_blank">
+										<a class="artist-name-link" data-ng-href="{{artist.artistLink}}" target="_blank">
 										{{artist.name}}
 										</a>
 									</h3>
 									<div class="tags">
 										<a 	class="tag"
-												ng-repeat="tag in artist.tags"
-												ng-href="{{tag.tagLink}}"
+												data-ng-repeat="tag in artist.tags"
+												data-ng-href="{{tag.tagLink}}"
 												target="_blank">
 												{{tag.tagName}}
 										</a>
@@ -107,38 +92,38 @@
 
 									<nav class="card-nav">
 										<div 	class="nav-item"
-												ng-class="{active: navs[$index].active == 1 }"
-												ng-click="navs[$index].active = 1">
+												data-ng-class="{active: navs[$index].active == 1 }"
+												data-ng-click="navs[$index].active = 1">
 											Bio
 										</div>
 										<div 	class="nav-item"
-												ng-class="{active: navs[$index].active == 2 }"
-												ng-click="navs[$index].active = 2">
+												data-ng-class="{active: navs[$index].active == 2 }"
+												data-ng-click="navs[$index].active = 2">
 											Albums
 										</div>
 										<div 	class="nav-item"
-												ng-class="{active: navs[$index].active == 3 }"
-												ng-click="navs[$index].active = 3">
+												data-ng-class="{active: navs[$index].active == 3 }"
+												data-ng-click="navs[$index].active = 3">
 											Tracks
 										</div>
 									</nav>
 
-									<div class="content-area" ng-switch="navs[$index].active">
-										<div class="bio" ng-switch-when="1">
+									<div class="content-area" data-ng-switch="navs[$index].active">
+										<div class="bio" data-ng-switch-when="1">
 												<div>
 													{{artist.bio}}
 												</div>
-												<a class="read-more-link" ng-href="{{artist.artistLink}}" target="_blank">Read more about {{artist.name}} on Last.fm!</a>
+												<a class="read-more-link" data-ng-href="{{artist.artistLink}}" target="_blank">Read more about {{artist.name}} on Last.fm!</a>
 
-												<!-- <p ng-bind-html="artist.bio"></p> -->
+												<!-- <p data-ng-bind-html="artist.bio"></p> -->
 										</div>
-										<div ng-switch-when="2">
-											<p ng-hide="artist.showAlbums">
+										<div data-ng-switch-when="2">
+											<p data-ng-hide="artist.showAlbums">
 												Unable to display albums!
 											</p>
 											<ul >
-												<li ng-repeat="album in artist.albumInfo">
-													<a ng-href="http://google.ca/#q={{album.urlname}}+torrent" target="_blank">	
+												<li data-ng-repeat="album in artist.albumInfo">
+													<a data-ng-href="http://google.ca/#q={{album.urlname}}+torrent" target="_blank">	
 													{{album.name}}
 													</a>
 													<div>
@@ -148,7 +133,7 @@
 												</li>
 											</ul>
 										</div>
-										<div ng-switch-when="3">Links to torrents of artists' top tracks coming soon!</div>
+										<div data-ng-switch-when="3">Links to torrents of artists' top tracks coming soon!</div>
 									</div>	
 
 								</article>

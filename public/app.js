@@ -48,27 +48,22 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 
 		//	Okay so this is doing a check to see if we've already stored any lastfm data in localStorage
 		if( localStorage.lastfmSession ){		
-$l('There is a lastFmSession in localStorage!');
 			// grab that old localstorage session of it
 			$scope.lastfmSession = JSON.parse( localStorage.lastfmSession );
 			//	This is where our username should get retrieved;					
 			$scope.username = $scope.lastfmSession.name;
 			$scope.authorized = true;					
-$l('Logging the old lastfm session for info');
 			$log.log($scope.lastfmSession);
 
 			if( localStorage.lastfmRecs ){
-$l('There is lastfmRecs localStorage!');
 				$scope.lastfmRecs = JSON.parse( localStorage.lastfmRecs );
 		    	$scope.updateCards($scope.lastfmRecs);
 
 			}else{
-$l('There is no lastfmRecs in localStorage!');
 				$scope.getRecs($scope.lastfmSession);
 			}
 
 		}else{
-$l('There is no lastfmSession in localStorage!');
 			$scope.lastfmSession = false;
 			$scope.username = '';
 
@@ -80,7 +75,6 @@ $l('There is no lastfmSession in localStorage!');
 			},
 			{
 			 	success: function(data_sess) {
-$l('Successfully retrieved a lastfm session');
 
 			    	$scope.sesson = data_sess.session
 
@@ -89,15 +83,13 @@ $l('Successfully retrieved a lastfm session');
 					// localStorage.lastfmSession.name = data_sess.session.name;
 					$scope.username = data_sess.session.name;
 			    	$scope.authorized = true;
-$l($scope.username);
 			    	$scope.$digest();		
 
 			    	$scope.getRecs($scope.lastfmSession);
 
 			    },
 			    error: function(data_sess_error) {
-$l('error retrieving lastfmSession!');
-			    	console.log(data_sess_error);
+			    	$log.log(data_sess_error);
 			    }
 			});	
 
@@ -113,7 +105,6 @@ $l('error retrieving lastfmSession!');
 
 
 	$scope.getRecs = function(sesh){
-$l('getRecs called!');
 
 		//	Here's the part where ya check if their recs already been loaded.
 		lastfm.user.getRecommendedArtists({
@@ -124,24 +115,21 @@ $l('getRecs called!');
 		  	sesh,
 		{
 		    success: function(data_recs) {
-$l('Successfully got recs!!');
 		    	$scope.recs = data_recs.recommendations;
 				localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
 		    	$scope.updateCards($scope.recs);
 		    	$scope.$digest();
-$l($scope.artists);
 		    },
 		    error: function(data_recs_error) {
-$l('Failed to get recs!!');
-		    	console.log('recs_fail');
-		    	console.log(data_recs_error);
+		    	$log.log('recs_fail');
+		    	$log.log(data_recs_error);
 		    }
 		});//End getRecs
 	};
 
 	$scope.updateCards = function(recs){
 
-		// console.log(recs.artist)
+		// $log.log(recs.artist)
 		$.each(recs.artist, function(i,v){
 
 			var newArtist = {};
@@ -197,12 +185,12 @@ $l('Failed to get recs!!');
 				$scope.getArtistsTopAlbums($scope.artists[i]);
 			})
 			.error(function(data){
-				console.log('Error grabbing info: ');
-				console.log(data);
+				$log.log('Error grabbing info: ');
+				$log.log(data);
 			})
 		});
 		$scope.$digest();
-		// console.log($scope.artists);
+		// $log.log($scope.artists);
 	};
 
 
@@ -215,7 +203,7 @@ $l('Failed to get recs!!');
 				artist.albums = data.topalbums.album;
 			}else{
 				//	TODO: this should change the "hasAlbums" text to "No Albums to Display!"
-				console.log(data.message);
+				$log.log(data.message);
 				return;
 			}
 
@@ -261,21 +249,6 @@ $l('Failed to get recs!!');
 	//////////////////////////////////////////////
 	//			  UTILITY FUNCTIONS				//
 	//////////////////////////////////////////////
-
-	var $l = function(msg){
-		console.log( '~~~~~~~~  ' + $scope.logNum + '  ~~~~~~~~');
-		console.log(msg);
-		console.log( '=====================');
-
-		var t = $('#devlog p.console').html();
-		$('#devlog p.console').html(t + $scope.logNum + '| ' + msg + '<br/>');
-		$scope.logNum++;
-	};
-
-	$scope.clearLocalStorage = function(){
-		localStorage.clear();
-		location.reload();
-	};
 
 	//	This takes the bio and shortens it and adds a sweet 'read more' link to it.
 	var truncateBio = function(str, size){
