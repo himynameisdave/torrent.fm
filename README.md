@@ -1,6 +1,6 @@
 torrent.fm 
 ==========
-#####[`v.1.1.0`](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.1.0)
+#####[`v.1.1.0.1`](https://github.com/himynameisdave/torrent.fm/releases/tag/v1.1.0.1)
 
 ###### a [last.fm](http://last.fm) project 
 
