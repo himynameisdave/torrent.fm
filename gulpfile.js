@@ -130,11 +130,17 @@ gulp.task('less', function(){
 		.pipe(gulp.dest('app/css/'));
 });
 
-gulp.task('styles', function(){
+gulp.task('styles', function(){	
 	gulp.watch('app/css/style.less', ['less']);
+
 });	
 
-	
+gulp.task('csscomb', function(){	
+	gulp.src('app/css/style.css')
+		.pipe(plug.csscomb())
+		.pipe(gulp.dest('app/css/'));
+
+});
 
 
 ///////////////////////////////////////////////////////

@@ -1,5 +1,7 @@
 
-
+////////////////////////
+// torrent.fm v.1.1.0 //
+////////////////////////
 
 //	Declare our app
 var app = angular.module('app', []);
@@ -17,6 +19,9 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 
 	//	clear $scope.artists
 	$scope.artists = [];
+
+	//	what page of recs we should have loaded
+	$scope.recsPage = 1;
 
 	//	quick check to see if the browser supports localStorage
 	$scope.hasLocalStorage = ( typeof(Storage) !== "undefined" ) ? true : false;
@@ -46,24 +51,33 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 	//	contains all the main funcitonality
 	$scope.init = function(){
 
+		if ( $scope.hasLocalStorage && localStorage.getItem('recsPage')) {
+$l('localStorage exists and also there is a recs page from before');
+			$scope.recsPage = localStorage.recsPage;
+		}
+
 		//	Okay so this is doing a check to see if we've already stored any lastfm data in localStorage
 		if( localStorage.lastfmSession ){		
+$l('There is a lastFmSession in localStorage!');
 			// grab that old localstorage session of it
 			$scope.lastfmSession = JSON.parse( localStorage.lastfmSession );
 			//	This is where our username should get retrieved;					
 			$scope.username = $scope.lastfmSession.name;
 			$scope.authorized = true;					
-			$log.log($scope.lastfmSession);
 
 			if( localStorage.lastfmRecs ){
+$l('There is lastfmRecs localStorage!');
 				$scope.lastfmRecs = JSON.parse( localStorage.lastfmRecs );
+		    	$log.log($scope.lastfmRecs);
 		    	$scope.updateCards($scope.lastfmRecs);
 
 			}else{
+$l('There is no lastfmecs in localStorage!');
 				$scope.getRecs($scope.lastfmSession);
 			}
 
 		}else{
+$l('There is no lastfmSession in localStorage!');
 			$scope.lastfmSession = false;
 			$scope.username = '';
 
@@ -75,6 +89,7 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 			},
 			{
 			 	success: function(data_sess) {
+$l('Successfully retrieved a lastfm session');
 
 			    	$scope.sesson = data_sess.session
 
@@ -83,13 +98,14 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 					// localStorage.lastfmSession.name = data_sess.session.name;
 					$scope.username = data_sess.session.name;
 			    	$scope.authorized = true;
+$l($scope.username);
 			    	$scope.$digest();		
-
 			    	$scope.getRecs($scope.lastfmSession);
 
 			    },
 			    error: function(data_sess_error) {
-			    	$log.log(data_sess_error);
+$l('error retrieving lastfmSession!');
+			    	console.log(data_sess_error);
 			    }
 			});	
 
@@ -105,37 +121,59 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 
 
 	$scope.getRecs = function(sesh){
+$l('getRecs called!');
+		if(sesh === 'gimmieMore'){
+			sesh = $scope.lastfmSession;
+		}
+		var limit = 12;
+		// if($scope.recsPage < 3){ limit = 12; }
+		// if($scope.recsPage >= 3 && $scope.recsPage < 6 ){ limit = 6; }
+		// if($scope.recsPage >= 6 ){ limit = 4; }
 
 		//	Here's the part where ya check if their recs already been loaded.
 		lastfm.user.getRecommendedArtists({
 		    user: 	$scope.username,
-		    limit: 	12,
-		    page: 	1
+		    limit: 	limit,
+		    page: 	$scope.recsPage
 		},
 		  	sesh,
 		{
 		    success: function(data_recs) {
+$l('Successfully got recs!!');
+				$scope.recsPage++;
 		    	$scope.recs = data_recs.recommendations;
-				localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
+
+		    	if( localStorage.getItem('lastfmRecs') ){
+		    		var hmstrngs = JSON.parse(localStorage.lastfmRecs);
+					$.each($scope.recs.artist, function(k, val){
+						hmstrngs.artist.push(val);
+					})
+					localStorage.lastfmRecs = JSON.stringify(hmstrngs);
+					localStorage.recsPage = $scope.recsPage;
+		    	}else{
+					localStorage.lastfmRecs = JSON.stringify($scope.recs);	    	
+		    	}
 		    	$scope.updateCards($scope.recs);
 		    	$scope.$digest();
+// $l($scope.artists);
 		    },
 		    error: function(data_recs_error) {
-		    	$log.log('recs_fail');
-		    	$log.log(data_recs_error);
+$l('Failed to get recs!!');
+		    	console.log('recs_fail');
+		    	console.log(data_recs_error);
 		    }
 		});//End getRecs
 	};
 
 	$scope.updateCards = function(recs){
 
-		// $log.log(recs.artist)
+		// console.log(recs.artist)
 		$.each(recs.artist, function(i,v){
 
 			var newArtist = {};
-			var numImgs = (v.image.length) - 1;
-			
 			newArtist.name = v.name;
+				
+			var numImgs = (v.image.length) - 1;
 			newArtist.img = v.image[numImgs]['#text'];
 
 			$scope.artists.push(newArtist);
@@ -185,12 +223,12 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 				$scope.getArtistsTopAlbums($scope.artists[i]);
 			})
 			.error(function(data){
-				$log.log('Error grabbing info: ');
-				$log.log(data);
+				console.log('Error grabbing info: ');
+				console.log(data);
 			})
 		});
 		$scope.$digest();
-		// $log.log($scope.artists);
+		// console.log($scope.artists);
 	};
 
 
@@ -203,7 +241,7 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 				artist.albums = data.topalbums.album;
 			}else{
 				//	TODO: this should change the "hasAlbums" text to "No Albums to Display!"
-				$log.log(data.message);
+				console.log(data.message);
 				return;
 			}
 
@@ -249,6 +287,21 @@ app.controller('Controller', ['$scope', '$http', '$sce', '$log', function ($scop
 	//////////////////////////////////////////////
 	//			  UTILITY FUNCTIONS				//
 	//////////////////////////////////////////////
+
+	var $l = function(msg){
+		console.log( '~~~~~~~~  ' + $scope.logNum + '  ~~~~~~~~');
+		console.log(msg);
+		console.log( '=====================');
+
+		var t = $('#devlog p.console').html();
+		$('#devlog p.console').html(t + $scope.logNum + '| ' + msg + '<br/>');
+		$scope.logNum++;
+	};
+
+	$scope.clearLocalStorage = function(){
+		localStorage.clear();
+		location.reload();
+	};
 
 	//	This takes the bio and shortens it and adds a sweet 'read more' link to it.
 	var truncateBio = function(str, size){

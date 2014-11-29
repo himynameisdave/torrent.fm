@@ -5,19 +5,35 @@
 	<title>torrent.fm</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+	<meta name="version" content="v1.1.0">
 	<meta name="description" content="A small Angular app to make it easier to download your last.fm recommendations.">
-	<meta name="keywords" content="last.fm, torrents, download, music, Angular.js, Dave Lunny, web development, UI Design, music">
+	<meta name="keywords" content="last.fm, torrents, download, music, Angular.js, Dave Lunny, web development, UI Design">
 	<meta name="author" content="Dave Lunny">
 
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 
-	<script type="text/javascript" src="core.js"></script>
-	<script type="text/javascript" src="japp.js"></script>
-	<link rel="stylesheet" type="text/css" href="core.css"	/>
+	<script type="text/javascript" src="lib/js/angular.js"></script>
+
+	<script type="text/javascript" src="lib/js/jquery.js"></script>
+	<script type="text/javascript" src="lib/js/lastfm.api.min.js"></script>
+	<script type="text/javascript" src="lib/js/purl.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+
+	<link href='lib/css/lato.css' rel='stylesheet' type='text/css'>
+	<link href="lib/css/font-awesome.css" rel="stylesheet" />
+	<link href="lib/css/bootstrap.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/style.css"	/>
 
 </head>
 <body data-ng-controller="Controller">
+		
+		<div id="devlog" class="devlog">
+			<div class="clear-storage-btn" data-ng-click="clearLocalStorage()">
+				Clear Storage
+			</div>
+			<p class="console"></p>
+		</div>
 
 		<div class="topbar">
 			<div class="page-container container-fluid">
@@ -140,6 +156,14 @@
 							</section>
 						</div>
 
+					</div>
+				</div>
+			</div>
+			<div class="row" data-ng-if="lastfmSession">
+				<div class="col-xs-12">
+					<div 	class="get-recs-btn"
+							data-ng-click="getRecs('gimmieMore')">
+						Load More Recs
 					</div>
 				</div>
 			</div>
